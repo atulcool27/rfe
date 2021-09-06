@@ -65,8 +65,8 @@
   <section id="topbar" class="d-flex align-items-center bg-white text-dark">
     <div class="container d-flex justify-content-center justify-content-md-between">
       <div class="contact-info d-flex align-items-center">
-        <i class="far fa-envelope"></i><a href="mailto:racekon@gmail.com" class="text-primary">info@racekon.com</a>
         <i class="fas fa-mobile-alt phone-icon"></i><a href="tel:18001239879" class="text-primary mr-3"> 1800 1239 879</a>
+        <i class="far fa-envelope"></i><a href="mailto:racekon@gmail.com" class="text-primary mr-3"></a>
         <a href="https://www.facebook.com/RACEKON.INDUSTRIES" class="text-white mr-3"><i class="fab fa-facebook"></i></a>
         <a href="https://www.instagram.com/racekon_industries_pvt_ltd/" class="text-white mr-3"><i class="fab fa-instagram"></i></a>
         <a href="https://api.whatsapp.com/send?phone=919999458880" class="text-white"><i class="fab fa-whatsapp"></i></a>
@@ -140,72 +140,24 @@
       
       
 
-        <header class="section-header">
-          <h1>
+        <header class="section-header mb-5 float">
+          <h1 style="text-align: center;">
           <a class="badge badge-pill" onclick="startDownload()" >  <div class="nav-link navbar-link-2 waves-effect" style="cursor: pointer;">
-                <span id="checkoutCount" name="checkoutCount" class="badge badge-pill badge-danger fa-1x"></span>
+                <span id="checkoutCount" name="checkoutCount" class="badge badge-pill badge-danger fa-1x">0</span>
                 <i class="fas fa-shopping-cart text-primary  pl-0 fa-2x"></i>
                <i class="far fa-2x text-primary"></i>
            </div></a>  </h1>
           <button data-toggle="modal" data-target="#performaModal" id="downlodModal" name="downloadModal" hidden ></button>
-          <h2>Click Cart after adding some products.</h2>
+          <h4 style="text-align: center;">Click Cart after adding some products.</h4>
           
         </header>
 
         <div class="swiper-container" data-aos="fade-up" data-aos-delay="200">
-        
-        <div class="row d-flex justify-content-around align-items-center mb-4">
-              <div class="col-12 col-md-4 text-center text-md-left">
-              		<div class="slider-price d-flex align-items-center">
-                <select  class="custom-select h-100 w-auto bg-white text-dark" id="catalogFilter" name="catalogFilter" onchange="gotoProductPage(1)">
-                  <option th:selected="${selected.equals('like_desc')}"   value="like_desc">Most Liked</option>
-				  <option th:selected="${selected.equals('pname_asc')}"    value="pname_asc" >Name (A - Z)</option>
-				  <option th:selected="${selected.equals('pname_desc')}"   value="pname_desc" >Name (Z - A)</option>
-				  <option th:selected="${selected.equals('price_asc')}"  value="price_asc">Price Low To High</option>
-				  <option th:selected="${selected.equals('price_desc')}"  value="price_desc">Price High To Low</option>
-				</select>
-              </div>
-              
-              </div>
-              <div class="col-12 col-md-4">
-               <br><br>
-              </div>
-              <div class="col-12 col-md-4 text-center">
-               
-              </div>
-            </div>
 
           
               <div id="products"></div>
          
 
-          <div class="row d-flex justify-content-around align-items-center mb-4">
-              <div class="col-12 col-md-4 text-center text-md-left">
-              		<div class="slider-price d-flex align-items-center">
-                
-              </div>
-              
-              </div>
-              <div class="col-12 col-md-4">
-               <br><br>
-              </div>
-              <div class="col-12 col-md-4 text-center">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center float-md-right mb-0" style="cursor: pointer;">
-                    <li class="page-item"><a class="page-link"><i class="fas fa-chevron-left"></i></a></li>
-                    <div th:each="index : ${pages}">
-                   	 <li class="page-item active" th:if="${active == index}">
-                    <a class="page-link" th:href="'#'" th:text="${index}"></a></li>
-                    <li class="page-item" th:if="${active != index}">
-                    <a class="page-link" th:attr="onclick=|gotoProductPage('${index}')|" th:text="${index}"></a></li>
-                    </div>
-                    <li class="page-item"><a class="page-link"><i class="fas fa-chevron-right"></i></a></li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-            
-            
           
           <div class="swiper-pagination mt-5"></div>
         </div>
@@ -271,7 +223,7 @@
                   </div>	
 
                   <div class="text-center">
-                    <button type="button" class="btn btn-success my-2" onclick="validatePerforma()">Download</button>
+                    <button type="button" class="btn btn-success my-2" onclick="downloadProforma()">Download</button>
                   </div>
 
                 </form>
