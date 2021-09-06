@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     //getProductList
     $.ajax({
-        url: 'https://racekonindustries.in/common/download/imageid?imageId=img2&_=1630846375473',
+        url: 'https://racekonindustries.in/common/productlist',
         type: 'GET',
         dataType: 'json',
         crossDomain: true,
