@@ -7,12 +7,12 @@ $(document).ready(function() {
         url: 'https://racekonindustries.in/common/productlist',
         type: 'GET',
         dataType: 'json',
-        crossDomain: true,
-        headers: {
-            'Accept':'application/json',
-            'Content-Type':'application/json',
-            'Access-Control-Allow-Origin': "*"
-        },
+        //crossDomain: true,
+        // headers: {
+        //     'Accept':'application/json',
+        //     'Content-Type':'application/json',
+        //     'Access-Control-Allow-Origin': "*"
+        // },
         success: function(data){
             alert(JSON.stringify(data));
         },
