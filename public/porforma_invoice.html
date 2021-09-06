@@ -68,13 +68,13 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="../index.html">RACEKON</a></h1>
+      <h1 class="logo"><a href="../">RACEKON</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href="../index.html">Home</a></li>
+          <li><a class="nav-link scrollto" href="../">Home</a></li>
           <li><a class="nav-link scrollto active" href="porforma_invoice.html">Porforma Invoice</a></li>
         </ul>
         <i class="fas fa-bars mobile-nav-toggle"></i>
@@ -168,67 +168,9 @@
         
           <div class="row">
 
-            <div class="col-md-6 col-lg-4 mb-2" th:each="prod : ${tdata}">
-               <div class=" mb-12" >
-
-                <!-- Card -->
-                <div class="card border-primary h-100">
-
-                  <div class="view zoom z-depth-2 rounded">
-                    <img class="img-fluid w-100 myImages"  style="width:100%; height: 100%;" th:id="'img'+${prod.productId}" src="/images/default.jpg"  
-                     >
-                  </div>
-
-				 <div class="card-body">
-                 <div class="text-center pt-4">
-
-                    <h6 class="text-dark font-weight-light lead fas" th:text="${prod.productName}"></h6>
-                    
-
-                  	</div>
-                  </div>
-                  <div class="card-footer bg-white">
-                  	
-				        
-				        
-				    <div th:if="${prod.amountInStock>0}">
-				    <h6 class="mb-3" ><span th:text="${'&#8377; '}"></span><span class="font-weight-bold"  th:text="${#numbers.formatDecimal(prod.productPrice, 0, 'COMMA', 2, 'POINT')}"></span></h6>
-                    <div class="row">
-                    <div class="col-6">
-                    <button type="button" th:id="'cartBtn'+${prod.productId}" th:attr="onclick=|myCart('${prod.productId}','${prod.productName}','${prod.productPrice}')|"  class="btn btn-primary btn-sm mr-1"><i class="fas fa-shopping-cart pr-2"></i>Add to cart</button>
-                     </div>
-                    <div class="col-6">
-                      <select class="lead" th:id="'quan'+${prod.productId}" th:attr="onchange=|myCartQuan('${prod.productId}','${prod.productName}','${prod.productPrice}')|">
-                      	<option th:selected="${ 1 == i}"   th:each="i: ${#numbers.sequence(1, 100)}" th:value="${i}" th:text="${i}"></option>
-                      </select>
-                    </div>
-                    </div>
-                    
-                    
-                    <button type="button" th:id="'heartBtn'+${prod.productId}" th:attr="onclick=|myLikes('${prod.productId}')|"  class="btn btn-white btn-sm px-3" data-toggle="tooltip"
-                      data-placement="top" title="Like" hidden><i th:id="'heart'+${prod.productId}"  class="far fa-heart"></i></button>
-                     </div>
-                     <div th:if="${prod.amountInStock==0}">
-                      <img src="/images/sold.png" height="60" width="60" > &nbsp; Re-check Later.
-                     </div>
-                   
-				      </div>
-
-                </div>
-                <!-- Card -->
-                
-                
-                
-                
-
-              </div>
-              <!-- Grid column -->
-              
-            </div><!-- End testimonial item -->
             
             
-            
-            
+              <div id="products"></div>
             
             
           </div>
