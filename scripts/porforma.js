@@ -1,6 +1,6 @@
 
 //var API_URL = "http://18.210.2.199";
-var API_URL = "https://racekonindustries.in/";
+var API_URL = "https://racekonindustries.in";
 
 $(document).ready(function () {
 
