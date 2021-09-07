@@ -1,5 +1,6 @@
 
-var API_URL = "http://18.210.2.199";
+//var API_URL = "http://18.210.2.199";
+var API_URL = "https://racekonindustries.in/";
 
 $(document).ready(function () {
 
@@ -42,7 +43,12 @@ $(document).ready(function () {
 
             },
             error: function (e) {
-                alert("something unexpected happened");
+                bootbox.dialog({
+                    message: "Error loading products",
+                    size: 'small',
+                    closeButton: false,
+                    backdrop: true
+                });
             }
         });
     } else {
