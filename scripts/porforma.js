@@ -17,7 +17,7 @@ $(document).ready(function () {
     if (localStorage.getItem("page1") === null) {
         //getProductList
         $.ajax({
-            url: API_URL+'/common/productlist',
+            url: API_URL+'/api/productlist',
             type: 'GET',
             dataType: 'json',
             success: function (data) {
