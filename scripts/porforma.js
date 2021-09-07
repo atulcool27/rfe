@@ -17,7 +17,7 @@ $(document).ready(function () {
     if (localStorage.getItem("page1") === null) {
         //getProductList
         $.ajax({
-            url: API_URL+'/common/productlist',
+            url: API_URL+'/api/productlist',
             type: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -27,13 +27,17 @@ $(document).ready(function () {
                 }
 
                 var productDiv = '<div class="row">';
+                var imgName = "default";
                 for (var i = 0; i < data.field1.length; i++) {
                     product = data.field1[i];
                     var price = product.productPrice.toLocaleString('en-IN', {
                         maximumFractionDigits: 2,
                         currency: 'INR'
                     });
-                    productDiv += '<div class="col-md-6 col-lg-4 mb-2"> <div class="card border-primary h-100"> <div class="view zoom z-depth-2 rounded"> <img class="img-fluid w-100 myImages" style="width:100%; height: 100%;" id="img' + product.productId + '" src="../images/products/default.jpg"> </div>  <div class="card-body"> <div class="text-center pt-4">  <h6 class="text-dark font-weight-light lead fas" id="name'+product.productId+'">' + product.productName + '</h6>  </div> </div> <div class="card-footer bg-white"> <h6 class="mb-3"><span>₹</span><span class="font-weight-bold" id="price'+product.productId+'">' + price + '</span></h6>  <div class="row"><div class="col-6"><button type="button" id="cartBtn' + product.productId + '" onclick="addToCart(' + product.productId + ')" class="btn btn-primary btn-sm mr-1">Add to cart</button></div> <div class="col-6"> <select id="select' + product.productId + '" onchange="myCartQuan('+product.productId+')"> <option selected value="1" hidden>1</option>' + optionList + '</select> </div> </div> </div> </div> </div>';
+
+                    imgName = product.productName.replace(/[^0-9]+/ig,"");
+
+                    productDiv += '<div class="col-md-6 col-lg-4 mb-2"> <div class="card border-primary h-100"> <div class="view zoom z-depth-2 rounded"> <img class="img-fluid w-100 myImages" style="width:100%; height: 100%;" id="img' + product.productId + '" src="../images/products/'+imgName+'"> </div>  <div class="card-body"> <div class="text-center pt-4">  <h6 class="text-dark font-weight-light lead fas" id="name'+product.productId+'">' + product.productName + '</h6>  </div> </div> <div class="card-footer bg-white"> <h6 class="mb-3"><span>₹</span><span class="font-weight-bold" id="price'+product.productId+'">' + price + '</span></h6>  <div class="row"><div class="col-6"><button type="button" id="cartBtn' + product.productId + '" onclick="addToCart(' + product.productId + ')" class="btn btn-primary btn-sm mr-1">Add to cart</button></div> <div class="col-6"> <select id="select' + product.productId + '" onchange="myCartQuan('+product.productId+')"> <option selected value="1" hidden>1</option>' + optionList + '</select> </div> </div> </div> </div> </div>';
                 }
                 productDiv += '</div>';
 
