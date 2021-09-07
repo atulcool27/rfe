@@ -14,6 +14,7 @@ $(document).ready(function () {
      }
      localStorage.setItem("racecart","");
 
+
     if (localStorage.getItem("page1") === null) {
         //getProductList
         $.ajax({
