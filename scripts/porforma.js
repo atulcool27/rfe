@@ -26,7 +26,7 @@ $(document).ready(function () {
         //getProductList
         var imageList = [];
         $.ajax({
-            url: API_URL+'/api/productlist',
+            url: API_URL+'/api/public/productlist',
             type: 'GET',
             dataType: 'json',
             success: function (data) {
