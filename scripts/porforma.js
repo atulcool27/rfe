@@ -3,7 +3,15 @@ var API_URL = "https://racekon.online";
 $(document).ready(function () {
 
     
+    var refreshDate = localStorage.getItem("refreshDate");
+    var currentDate = new Date();
 
+    if(refreshDate !== null){
+        var hours = Math.abs(currentDate.getTime() - refreshDate.getTime());
+        if(hours > 24){
+            localStorage.removeItem("page1");
+        }
+    }
 
      var cart = localStorage.getItem("racecart");
      if(cart === null){
@@ -22,6 +30,7 @@ $(document).ready(function () {
             type: 'GET',
             dataType: 'json',
             success: function (data) {
+                
                 var optionList = "";
                 for (var i = 1; i < 101; i++) {
                     optionList += '<option value="' + i + '">' + i + '</option>';
@@ -46,6 +55,7 @@ $(document).ready(function () {
                 localStorage.setItem("page1", productDiv);
                 document.getElementById("products").innerHTML = productDiv;
 
+                localStorage.setItem("refreshDate", new Date());
 
             },
             error: function (e) {
