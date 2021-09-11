@@ -26,8 +26,8 @@ $(document).ready(function () {
 
                 var productDiv = '<div class="row">';
                 var imgName = "default.jpg";
-                for (var i = 0; i < data.field1.length; i++) {
-                    product = data.field1[i];
+                for (var i = 0; i < data.length; i++) {
+                    product = data[i];
                     var price = product.productPrice.toLocaleString('en-IN', {
                         maximumFractionDigits: 2,
                         currency: 'INR'
