@@ -728,7 +728,7 @@ section {
 # prod
 --------------------------------------------------------------*/
 .prod {
-  background: linear-gradient(rgba(2, 2, 2, 0.5), rgba(0, 0, 0, 0.5)), url("../images/products/80.jpg") fixed center center;
+  background: linear-gradient(rgba(2, 2, 2, 0.5), rgba(0, 0, 0, 0.5)), url("../images/products/80.jpg") fixed center;
   background-size: cover;
   padding: 120px 0;
 }
