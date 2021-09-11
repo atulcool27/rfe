@@ -18,16 +18,16 @@ $(document).ready(function () {
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                
                 var optionList = "";
                 for (var i = 1; i < 101; i++) {
                     optionList += '<option value="' + i + '">' + i + '</option>';
                 }
 
                 var productDiv = '<div class="row">';
-                var imgName = product.productImageName + ".jpg";
+                
                 for (var i = 0; i < data.length; i++) {
                     product = data[i];
+                    var imgName = product.productImageName + ".jpg";
                     var price = product.productPrice.toLocaleString('en-IN', {
                         maximumFractionDigits: 2,
                         currency: 'INR'
