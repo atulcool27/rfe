@@ -28,6 +28,9 @@
   <!-- Template Main CSS File -->
   <link href="styles/daystyle.css" rel="stylesheet">
   
+  <script src="scripts/jquery-3.2.1.min.js"></script>
+  <script src="scripts/pdf-lib.js"></script>
+  <script src="https://unpkg.com/downloadjs@1.4.7"></script>
 
   
 </head>
@@ -115,6 +118,9 @@
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4   bg-warning">
+              <div class="input-control mt-5">
+                <button onclick="downloadPDF()">Download PDF</button>
+              </div>
                 <form class="px-3 py-4">
                     <div class="input-control mt-5">
                     <label class="font-weight-bolder" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Username</label><br>
@@ -127,6 +133,7 @@
                     <div class="input-control mt-5">
                         <input class="btn-primary text-white" type="submit" name="submit" id="submit" value="Log In">
                     </div>
+                    
                 </form>
             </div>
             <div class="col-4"></div>
@@ -168,6 +175,7 @@
 
   <!-- Template Main JS File -->
   <script src="scripts/daymain.js"></script>
+  <script src="scripts/pdfmanager.js"></script>
   
 
 </body>
