@@ -14,7 +14,7 @@ $(document).ready(function () {
        
         var imageList = [];
         $.ajax({
-            url: API_URL+'/api/public/productlist',
+            url: 'https://racekonindustries.in/json/productlist.json',
             type: 'GET',
             dataType: 'json',
             success: function (data) {
