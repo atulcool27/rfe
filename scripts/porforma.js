@@ -347,6 +347,7 @@ async function downloadPDF(name,address,gst,phone,state) {
     color: rgb(0, 0, 0)
    })
 
+   var tempAmount = 0;
 
    //Print products 10 times
   for(var i =0; i<productList.length;i=i+1){
@@ -388,8 +389,13 @@ async function downloadPDF(name,address,gst,phone,state) {
           })
 
                //Rate
-        var temp = parseFloat(productList[i].split("XXX")[2])/parseFloat(productList[i].split("XXX")[1])
-        firstPage.drawText(""+parseInt(temp), {
+        var temp = parseFloat(productList[i].split("XXX")[2])/parseFloat(productList[i].split("XXX")[1]);
+        temp = parseInt(temp);
+        var spaces = "";
+        for (var pos = 0; pos < (6 - temp.toString().length); pos++) {
+            spaces += " ";
+        }
+        firstPage.drawText(""+spaces+parseInt(temp), {
             x: 372,
             y: 460-15*i,
             size: 9,
@@ -408,7 +414,16 @@ async function downloadPDF(name,address,gst,phone,state) {
 
 
                   //Amount
-        firstPage.drawText(""+Math.round(parseFloat(productList[i].split("XXX")[2])), {
+      spaces = "";
+      temp = Math.round(parseFloat(productList[i].split("XXX")[2]));
+      tempAmount+=temp;
+      temp = temp.toLocaleString('en-IN', {
+        maximumFractionDigits: 2,
+        currency: 'INR'});
+      for (var pos = 0; pos < (10 - temp.toString().length); pos++) {
+          spaces += " ";
+      }
+        firstPage.drawText(""+spaces+temp, {
             x: 520,
             y: 460-15*i,
             size: 9,
@@ -417,9 +432,55 @@ async function downloadPDF(name,address,gst,phone,state) {
           })
   }
 
+
+  var spaces = "";
+  var tempAmount1 = tempAmount.toLocaleString('en-IN', {
+    maximumFractionDigits: 2,
+    currency: 'INR'});
+  for (var pos = 0; pos < (10 - tempAmount1.toString().length); pos++) {
+    spaces += " ";
+ }
+  //Amount Before Discount
+  firstPage.drawText(""+spaces+tempAmount1, {
+    x: 520,
+    y: 308,
+    size: 9,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+  
+    //Taxable Value
+ firstPage.drawText(""+spaces+tempAmount1, {
+    x: 372,
+    y: 190,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+    //Taxable Value
+ firstPage.drawText(""+spaces+tempAmount1, {
+    x: 372,
+    y: 176,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
  
   //Discount
-  firstPage.drawText("1,20,000", {
+   var gstAmount =  Math.round(tempAmount*18/100);
+   var gstAmount1 = gstAmount.toLocaleString('en-IN', {
+    maximumFractionDigits: 2,
+    currency: 'INR'});
+  spaces="";
+  for (var pos = 0; pos < (10 - gstAmount1.toString().length); pos++) {
+    spaces += " ";
+ }
+  firstPage.drawText(""+spaces+gstAmount1, {
     x: 520,
     y: 280,
     size: 9,
@@ -428,8 +489,37 @@ async function downloadPDF(name,address,gst,phone,state) {
   })
 
 
+  
+    //Total Taxable Value
+ firstPage.drawText(""+spaces+gstAmount1, {
+    x: 470,
+    y: 190,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+    //Total Taxable value
+ firstPage.drawText(""+spaces+gstAmount1, {
+    x: 470,
+    y: 176,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
   //Total
-  firstPage.drawText("1,20,000", {
+  var totalAmount =  tempAmount+gstAmount;
+  var totalAmount1 = totalAmount.toLocaleString('en-IN', {
+   maximumFractionDigits: 2,
+   currency: 'INR'});
+ spaces="";
+ for (var pos = 0; pos < (10 - totalAmount1.toString().length); pos++) {
+   spaces += " ";
+}
+  firstPage.drawText(""+spaces+totalAmount1, {
     x: 520,
     y: 242,
     size: 9,
@@ -440,7 +530,7 @@ async function downloadPDF(name,address,gst,phone,state) {
   
 
  //Total IN ENGLISH
- firstPage.drawText("EIGHTEEN LAKH THIRTEEN THOUSAND NINE HUNDRED FORTY TWO RUPEES ONLY", {
+ firstPage.drawText(""+inWords(tempAmount).toUpperCase(), {
     x: 40,
     y: 229,
     size: 8,
@@ -450,7 +540,7 @@ async function downloadPDF(name,address,gst,phone,state) {
 
 
   //Total IN ENGLISH AFTER GST
- firstPage.drawText("EIGHTEEN LAKH THIRTEEN THOUSAND NINE HUNDRED FORTY TWO RUPEES ONLY", {
+ firstPage.drawText(""+inWords(totalAmount).toUpperCase(), {
     x: 145,
     y: 164,
     size: 8,
@@ -459,58 +549,9 @@ async function downloadPDF(name,address,gst,phone,state) {
   })
 
 
-   //Total IN ENGLISH AFTER GST
- firstPage.drawText("EIGHTEEN LAKH THIRTEEN THOUSAND NINE HUNDRED FORTY TWO RUPEES ONLY", {
-    x: 145,
-    y: 164,
-    size: 8,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  })
-
-
-    //Taxable Value
- firstPage.drawText("1,85,000", {
-    x: 372,
-    y: 190,
-    size: 8,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  })
-
-
-    //Taxable Value
- firstPage.drawText("1,75,000", {
-    x: 372,
-    y: 176,
-    size: 8,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  })
-
 
     //Total Taxable Value
- firstPage.drawText("1,85,000", {
-    x: 470,
-    y: 190,
-    size: 8,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  })
-
-
-    //Total Taxable value
- firstPage.drawText("1,75,000", {
-    x: 470,
-    y: 176,
-    size: 8,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  })
-
-
-    //Total Taxable Value
- firstPage.drawText("1,85,000", {
+ firstPage.drawText(""+spaces+totalAmount1, {
     x: 520,
     y: 190,
     size: 8,
@@ -520,7 +561,7 @@ async function downloadPDF(name,address,gst,phone,state) {
 
 
     //Total Taxable value
- firstPage.drawText("1,75,000", {
+ firstPage.drawText(""+spaces+totalAmount1, {
     x: 520,
     y: 176,
     size: 8,
@@ -537,6 +578,22 @@ async function downloadPDF(name,address,gst,phone,state) {
   download(pdfBytes, "porformainvoice.pdf", "application/pdf");
 }
 
+
+
+var a = ['','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ','eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '];
+var b = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
+
+function inWords (num) {
+    if ((num = num.toString()).length > 9) return 'overflow';
+    n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+    if (!n) return; var str = '';
+    str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'crore ' : '';
+    str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'lakh ' : '';
+    str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'thousand ' : '';
+    str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'hundred ' : '';
+    str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'rupees only ' : '';
+    return str;
+}
 
 
 
