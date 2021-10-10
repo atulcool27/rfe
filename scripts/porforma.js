@@ -339,7 +339,7 @@ async function downloadPDF(name,address,gst,phone,state) {
 
 
    //GST Number
-   firstPage.drawText("STATE : "+state.toUpperCase+"      CODE : "+gst.substring(0,2).toUpperCase(), {
+   firstPage.drawText("STATE : "+state.toUpperCase()+"      CODE : "+gst.substring(0,2).toUpperCase(), {
     x: 40,
     y: 525,
     size: 9,
@@ -347,7 +347,7 @@ async function downloadPDF(name,address,gst,phone,state) {
     color: rgb(0, 0, 0)
    })
 
-   
+
    var tempAmount = 0;
 
    //Print products 10 times
@@ -363,7 +363,7 @@ async function downloadPDF(name,address,gst,phone,state) {
           })
 
           //ProductName
-        firstPage.drawText(""+productList[i].split("XXX")[0].toUpperCase(), {
+        firstPage.drawText(""+productList[i].split("XXX")[0].substring(0,25).toUpperCase(), {
             x: 85,
             y: 460-15*i,
             size: 9,
