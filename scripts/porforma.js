@@ -167,11 +167,11 @@ $("#organizationPhone").toggleClass("border-danger");
  test=0;
  }
  
- if($("#organizationPhone").val() === ""){
+ if($("#organizationState").val() === ""){
 $("#organizationState").toggleClass("border-danger");
  test=0;
  }
- 
+
  
  if(test==0){
  bootbox.dialog({
@@ -232,7 +232,7 @@ if(localStorage.getItem("racecart") === null || localStorage.getItem("racecart")
   
 $('#performaModal').modal('toggle');
 
-var formData = $("#perForm").serialize();
+// var formData = $("#perForm").serialize();
 
 bootbox.dialog({
     message: "Generating Proforma Invoice ...",
@@ -241,14 +241,319 @@ bootbox.dialog({
     backdrop: true
 }); 
 
-localStorage.setItem("proformaForm",formData);
+// localStorage.setItem("proformaForm",formData);
 
-postForm(API_URL+'/public/performa/download', {
-							  formData: formData,
-							  racecart: localStorage.getItem("racecart")
-		});
+// postForm(API_URL+'/public/performa/download', {
+// 							  formData: formData,
+// 							  racecart: localStorage.getItem("racecart")
+// 		});
+
+downloadPDF($("#organizationName").val(),$("#organizationAddress").val(),$("#organizationGST").val(),
+$("#organizationPhone").val(),$("#organizationState").val());
 
 }
+
+
+
+
+
+
+
+const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
+
+async function downloadPDF(name,address,gst,phone,state) {
+  // Fetch an existing PDF document
+  const url = 'https://racekonindustries.in/pdfperforma.pdf'
+      const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+
+  // Load a PDFDocument from the existing PDF bytes
+  const pdfDoc = await PDFDocument.load(existingPdfBytes)
+
+  // Embed the Helvetica font
+  const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+
+  // Get the first page of the document
+  const pages = pdfDoc.getPages()
+  const firstPage = pages[0]
+
+  // Get the width and height of the first page
+  const { width, height } = firstPage.getSize()
+
+  var test = localStorage.getItem("racecart");
+  //var cartitems = localStorage.getItem("racecart").split(",");
+  var cartitems = test.substring(0,test.length-1).split(",");
+  var productData = "";
+  for(var index=0;index<cartitems.length;index++) {
+      var item = cartitems[index];
+    productData += item.split("-")[1]+",";
+  }
+
+
+  var productList = productData.substring(0,productData.length-1).split(",");
+
+
+  //Date 
+  firstPage.drawText(""+dateToYMD(new Date()), {
+    x: 345,
+    y: 691,
+    size: 10,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+   //Company Name
+   firstPage.drawText(""+name.toUpperCase(), {
+    x: 40,
+    y: 585,
+    size: 12,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+   })
+
+   //Company Address
+   firstPage.drawText(""+address.toUpperCase(), {
+    x: 40,
+    y: 570,
+    size: 9,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+   })
+
+   //Phone Number
+   firstPage.drawText("MOBILE : "+phone, {
+    x: 40,
+    y: 555,
+    size: 9,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+   })
+
+   //GST Number
+   firstPage.drawText("GSTIN : "+gst.toUpperCase(), {
+    x: 40,
+    y: 540,
+    size: 9,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+   })
+
+
+   //GST Number
+   firstPage.drawText("STATE : "+state.toUpperCase+"      CODE : "+gst.substring(0,2).toUpperCase(), {
+    x: 40,
+    y: 525,
+    size: 9,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+   })
+
+
+   //Print products 10 times
+  for(var i =0; i<productList.length;i=i+1){
+
+      //Serial Number
+        firstPage.drawText(""+(i+1), {
+            x: 45,
+            y: 460-15*i,
+            size: 9,
+            font: helveticaFont,
+            color: rgb(0, 0, 0)
+          })
+
+          //ProductName
+        firstPage.drawText(""+productList[i].split("XXX")[0].toUpperCase(), {
+            x: 85,
+            y: 460-15*i,
+            size: 9,
+            font: helveticaFont,
+            color: rgb(0, 0, 0)
+          })
+
+           //HSN
+        firstPage.drawText("85011020", {
+            x: 255,
+            y: 460-15*i,
+            size: 9,
+            font: helveticaFont,
+            color: rgb(0, 0, 0)
+          })
+
+             //Quantity
+        firstPage.drawText(""+productList[i].split("XXX")[1], {
+            x: 330,
+            y: 460-15*i,
+            size: 9,
+            font: helveticaFont,
+            color: rgb(0, 0, 0)
+          })
+
+               //Rate
+        var temp = parseFloat(productList[i].split("XXX")[2])/parseFloat(productList[i].split("XXX")[1])
+        firstPage.drawText(""+parseInt(temp), {
+            x: 372,
+            y: 460-15*i,
+            size: 9,
+            font: helveticaFont,
+            color: rgb(0, 0, 0)
+          })
+
+                //NOS
+        firstPage.drawText("NOS", {
+            x: 430,
+            y: 460-15*i,
+            size: 9,
+            font: helveticaFont,
+            color: rgb(0, 0, 0)
+          })
+
+
+                  //Amount
+        firstPage.drawText(""+Math.round(parseFloat(productList[i].split("XXX")[2])), {
+            x: 520,
+            y: 460-15*i,
+            size: 9,
+            font: helveticaFont,
+            color: rgb(0, 0, 0)
+          })
+  }
+
+ 
+  //Discount
+  firstPage.drawText("1,20,000", {
+    x: 520,
+    y: 280,
+    size: 9,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+  //Total
+  firstPage.drawText("1,20,000", {
+    x: 520,
+    y: 242,
+    size: 9,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+  
+
+ //Total IN ENGLISH
+ firstPage.drawText("EIGHTEEN LAKH THIRTEEN THOUSAND NINE HUNDRED FORTY TWO RUPEES ONLY", {
+    x: 40,
+    y: 229,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+  //Total IN ENGLISH AFTER GST
+ firstPage.drawText("EIGHTEEN LAKH THIRTEEN THOUSAND NINE HUNDRED FORTY TWO RUPEES ONLY", {
+    x: 145,
+    y: 164,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+   //Total IN ENGLISH AFTER GST
+ firstPage.drawText("EIGHTEEN LAKH THIRTEEN THOUSAND NINE HUNDRED FORTY TWO RUPEES ONLY", {
+    x: 145,
+    y: 164,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+    //Taxable Value
+ firstPage.drawText("1,85,000", {
+    x: 372,
+    y: 190,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+    //Taxable Value
+ firstPage.drawText("1,75,000", {
+    x: 372,
+    y: 176,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+    //Total Taxable Value
+ firstPage.drawText("1,85,000", {
+    x: 470,
+    y: 190,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+    //Total Taxable value
+ firstPage.drawText("1,75,000", {
+    x: 470,
+    y: 176,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+    //Total Taxable Value
+ firstPage.drawText("1,85,000", {
+    x: 520,
+    y: 190,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+    //Total Taxable value
+ firstPage.drawText("1,75,000", {
+    x: 520,
+    y: 176,
+    size: 8,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  })
+
+
+
+  // Serialize the PDFDocument to bytes (a Uint8Array)
+  const pdfBytes = await pdfDoc.save()
+
+        // Trigger the browser to download the PDF document
+  download(pdfBytes, "porformainvoice.pdf", "application/pdf");
+}
+
+
+
+
+
+function dateToYMD(date) {
+    var strArray=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var d = date.getDate();
+    var m = strArray[date.getMonth()];
+    var y = date.getFullYear();
+    return '' + (d <= 9 ? '0' + d : d) + '-' + m + '-' + y;
+}
+
+
+
+
+
+
 
 
 function postForm(path, params, method) {
