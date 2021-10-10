@@ -302,7 +302,7 @@ async function downloadPDF(name,address,gst,phone,state) {
   })
 
    //Company Name
-   firstPage.drawText(""+name.toUpperCase(), {
+   firstPage.drawText(""+name.substring(0,38).toUpperCase(), {
     x: 40,
     y: 585,
     size: 12,
@@ -311,7 +311,7 @@ async function downloadPDF(name,address,gst,phone,state) {
    })
 
    //Company Address
-   firstPage.drawText(""+address.toUpperCase(), {
+   firstPage.drawText(""+address.substring(0,38).toUpperCase(), {
     x: 40,
     y: 570,
     size: 9,
@@ -339,7 +339,7 @@ async function downloadPDF(name,address,gst,phone,state) {
 
 
    //GST Number
-   firstPage.drawText("STATE : "+state.toUpperCase()+"      CODE : "+gst.substring(0,2).toUpperCase(), {
+   firstPage.drawText("STATE : "+state.substring(0,20).toUpperCase()+"      CODE : "+gst.substring(0,2).toUpperCase(), {
     x: 40,
     y: 525,
     size: 9,
@@ -431,9 +431,9 @@ async function downloadPDF(name,address,gst,phone,state) {
           
           var pName = productList[i].split("XXX")[0];
 
-          if(pName.length>26){
+          if(pName.length>30){
                //ProductName
-              firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 26).toUpperCase()+"-", {
+              firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 30).toUpperCase()+"-", {
                   x: 85,
                   y: 460 - 10*row,
                   size: 8,
@@ -441,7 +441,7 @@ async function downloadPDF(name,address,gst,phone,state) {
                   color: rgb(0, 0, 0)
               })
 
-              firstPage.drawText("" + productList[i].split("XXX")[0].substring(26).toUpperCase(), {
+              firstPage.drawText("" + productList[i].split("XXX")[0].substring(30).toUpperCase(), {
                 x: 85,
                 y: 460 - 10*(row+1),
                 size: 8,
@@ -452,7 +452,7 @@ async function downloadPDF(name,address,gst,phone,state) {
             row=row+1;
              
           }else{
-            firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 26).toUpperCase()+"", {
+            firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 30).toUpperCase()+"", {
                 x: 85,
                 y: 460 - 10*row,
                 size: 8,
