@@ -452,7 +452,7 @@ async function downloadPDF(name,address,gst,phone,state) {
             row=row+2;
              
           }else{
-            firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 25).toUpperCase()+"-", {
+            firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 25).toUpperCase()+"", {
                 x: 85,
                 y: 460 - 15 * row,
                 size: 9,
