@@ -354,8 +354,13 @@ async function downloadPDF(name,address,gst,phone,state) {
    //Print products 10 times
   for(var i =0; i<productList.length;i=i+1){
 
+      var snoSpace = "";
+     if((i+1).toString().length==1){
+       snoSpace += " ";
+     }
+
       //Serial Number
-        firstPage.drawText(""+(i+1), {
+        firstPage.drawText(""+snoSpace+(i+1), {
             x: 45,
             y: 460-10*row,
             size: 9,
