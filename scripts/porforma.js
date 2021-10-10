@@ -349,6 +349,7 @@ async function downloadPDF(name,address,gst,phone,state) {
 
 
    var tempAmount = 0;
+   var row=0;
 
    //Print products 10 times
   for(var i =0; i<productList.length;i=i+1){
@@ -356,7 +357,7 @@ async function downloadPDF(name,address,gst,phone,state) {
       //Serial Number
         firstPage.drawText(""+(i+1), {
             x: 45,
-            y: 460-15*i,
+            y: 460-15*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -367,7 +368,7 @@ async function downloadPDF(name,address,gst,phone,state) {
            //HSN
         firstPage.drawText("85011020", {
             x: 255,
-            y: 460-15*i,
+            y: 460-15*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -376,7 +377,7 @@ async function downloadPDF(name,address,gst,phone,state) {
              //Quantity
         firstPage.drawText(""+productList[i].split("XXX")[1], {
             x: 330,
-            y: 460-15*i,
+            y: 460-15*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -391,7 +392,7 @@ async function downloadPDF(name,address,gst,phone,state) {
         }
         firstPage.drawText(""+spaces+parseInt(temp), {
             x: 372,
-            y: 460-15*i,
+            y: 460-15*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -400,7 +401,7 @@ async function downloadPDF(name,address,gst,phone,state) {
                 //NOS
         firstPage.drawText("NOS", {
             x: 430,
-            y: 460-15*i,
+            y: 460-15*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -419,7 +420,7 @@ async function downloadPDF(name,address,gst,phone,state) {
       }
         firstPage.drawText(""+spaces+temp, {
             x: 520,
-            y: 460-15*i,
+            y: 460-15*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -434,7 +435,7 @@ async function downloadPDF(name,address,gst,phone,state) {
                //ProductName
               firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 25).toUpperCase()+"-", {
                   x: 85,
-                  y: 460 - 15 * i,
+                  y: 460 - 15 * row,
                   size: 9,
                   font: helveticaFont,
                   color: rgb(0, 0, 0)
@@ -442,18 +443,18 @@ async function downloadPDF(name,address,gst,phone,state) {
 
               firstPage.drawText("" + productList[i].split("XXX")[0].substring(25).toUpperCase(), {
                 x: 85,
-                y: 460 - 15 * (i+1),
+                y: 460 - 15 * (row+1),
                 size: 9,
                 font: helveticaFont,
                 color: rgb(0, 0, 0)
             })
 
-            i=i+1;
+            row=row+2;
              
           }else{
             firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 25).toUpperCase()+"-", {
                 x: 85,
-                y: 460 - 15 * i,
+                y: 460 - 15 * row,
                 size: 9,
                 font: helveticaFont,
                 color: rgb(0, 0, 0)
