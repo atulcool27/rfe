@@ -347,6 +347,7 @@ async function downloadPDF(name,address,gst,phone,state) {
     color: rgb(0, 0, 0)
    })
 
+   
    var tempAmount = 0;
 
    //Print products 10 times
@@ -530,7 +531,7 @@ async function downloadPDF(name,address,gst,phone,state) {
   
 
  //Total IN ENGLISH
- firstPage.drawText(""+inWords(tempAmount).toUpperCase(), {
+ firstPage.drawText(""+inWords(totalAmount).toUpperCase(), {
     x: 40,
     y: 229,
     size: 8,
@@ -540,7 +541,7 @@ async function downloadPDF(name,address,gst,phone,state) {
 
 
   //Total IN ENGLISH AFTER GST
- firstPage.drawText(""+inWords(totalAmount).toUpperCase(), {
+ firstPage.drawText(""+inWords(gstAmount).toUpperCase(), {
     x: 145,
     y: 164,
     size: 8,
@@ -551,7 +552,7 @@ async function downloadPDF(name,address,gst,phone,state) {
 
 
     //Total Taxable Value
- firstPage.drawText(""+spaces+totalAmount1, {
+ firstPage.drawText(""+spaces+gstAmount1, {
     x: 520,
     y: 190,
     size: 8,
@@ -561,7 +562,7 @@ async function downloadPDF(name,address,gst,phone,state) {
 
 
     //Total Taxable value
- firstPage.drawText(""+spaces+totalAmount1, {
+ firstPage.drawText(""+spaces+gstAmount1, {
     x: 520,
     y: 176,
     size: 8,
