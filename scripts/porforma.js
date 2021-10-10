@@ -449,7 +449,7 @@ async function downloadPDF(name,address,gst,phone,state) {
                 color: rgb(0, 0, 0)
             })
 
-            row=row+2;
+            row=row+1;
              
           }else{
             firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 25).toUpperCase()+"", {
@@ -461,7 +461,7 @@ async function downloadPDF(name,address,gst,phone,state) {
             })
           }
 
-
+          row=row+1;
 
   }
 
