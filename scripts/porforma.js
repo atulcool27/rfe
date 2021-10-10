@@ -362,14 +362,7 @@ async function downloadPDF(name,address,gst,phone,state) {
             color: rgb(0, 0, 0)
           })
 
-          //ProductName
-        firstPage.drawText(""+productList[i].split("XXX")[0].substring(0,25).toUpperCase(), {
-            x: 85,
-            y: 460-15*i,
-            size: 9,
-            font: helveticaFont,
-            color: rgb(0, 0, 0)
-          })
+
 
            //HSN
         firstPage.drawText("85011020", {
@@ -431,6 +424,44 @@ async function downloadPDF(name,address,gst,phone,state) {
             font: helveticaFont,
             color: rgb(0, 0, 0)
           })
+
+
+
+          
+          var pName = productList[i].split("XXX")[0];
+
+          if(pName.length>25){
+               //ProductName
+              firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 25).toUpperCase()+"-", {
+                  x: 85,
+                  y: 460 - 15 * i,
+                  size: 9,
+                  font: helveticaFont,
+                  color: rgb(0, 0, 0)
+              })
+
+              firstPage.drawText("" + productList[i].split("XXX")[0].substring(25).toUpperCase(), {
+                x: 85,
+                y: 460 - 15 * (i+1),
+                size: 9,
+                font: helveticaFont,
+                color: rgb(0, 0, 0)
+            })
+
+            i=i+1;
+             
+          }else{
+            firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 25).toUpperCase()+"-", {
+                x: 85,
+                y: 460 - 15 * i,
+                size: 9,
+                font: helveticaFont,
+                color: rgb(0, 0, 0)
+            })
+          }
+
+
+
   }
 
 
