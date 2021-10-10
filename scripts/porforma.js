@@ -357,7 +357,7 @@ async function downloadPDF(name,address,gst,phone,state) {
       //Serial Number
         firstPage.drawText(""+(i+1), {
             x: 45,
-            y: 460-15*row,
+            y: 460-10*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -368,7 +368,7 @@ async function downloadPDF(name,address,gst,phone,state) {
            //HSN
         firstPage.drawText("85011020", {
             x: 255,
-            y: 460-15*row,
+            y: 460-10*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -377,7 +377,7 @@ async function downloadPDF(name,address,gst,phone,state) {
              //Quantity
         firstPage.drawText(""+productList[i].split("XXX")[1], {
             x: 330,
-            y: 460-15*row,
+            y: 460-10*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -392,7 +392,7 @@ async function downloadPDF(name,address,gst,phone,state) {
         }
         firstPage.drawText(""+spaces+parseInt(temp), {
             x: 372,
-            y: 460-15*row,
+            y: 460-10*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -401,7 +401,7 @@ async function downloadPDF(name,address,gst,phone,state) {
                 //NOS
         firstPage.drawText("NOS", {
             x: 430,
-            y: 460-15*row,
+            y: 460-10*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -420,7 +420,7 @@ async function downloadPDF(name,address,gst,phone,state) {
       }
         firstPage.drawText(""+spaces+temp, {
             x: 520,
-            y: 460-15*row,
+            y: 460-10*row,
             size: 9,
             font: helveticaFont,
             color: rgb(0, 0, 0)
@@ -431,20 +431,20 @@ async function downloadPDF(name,address,gst,phone,state) {
           
           var pName = productList[i].split("XXX")[0];
 
-          if(pName.length>25){
+          if(pName.length>26){
                //ProductName
-              firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 25).toUpperCase()+"-", {
+              firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 26).toUpperCase()+"-", {
                   x: 85,
-                  y: 460 - 15 * row,
-                  size: 9,
+                  y: 460 - 10*row,
+                  size: 8,
                   font: helveticaFont,
                   color: rgb(0, 0, 0)
               })
 
-              firstPage.drawText("" + productList[i].split("XXX")[0].substring(25).toUpperCase(), {
+              firstPage.drawText("" + productList[i].split("XXX")[0].substring(26).toUpperCase(), {
                 x: 85,
-                y: 460 - 15 * (row+1),
-                size: 9,
+                y: 460 - 10*(row+1),
+                size: 8,
                 font: helveticaFont,
                 color: rgb(0, 0, 0)
             })
@@ -452,10 +452,10 @@ async function downloadPDF(name,address,gst,phone,state) {
             row=row+1;
              
           }else{
-            firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 25).toUpperCase()+"", {
+            firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 26).toUpperCase()+"", {
                 x: 85,
-                y: 460 - 15 * row,
-                size: 9,
+                y: 460 - 10*row,
+                size: 8,
                 font: helveticaFont,
                 color: rgb(0, 0, 0)
             })
