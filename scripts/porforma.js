@@ -1,5 +1,7 @@
 var API_URL = "https://racekon.online";
 
+var orders=[];
+
 $(document).ready(function () {
 
 
@@ -241,12 +243,6 @@ bootbox.dialog({
     backdrop: true
 }); 
 
-// localStorage.setItem("proformaForm",formData);
-
-// postForm(API_URL+'/public/performa/download', {
-// 							  formData: formData,
-// 							  racecart: localStorage.getItem("racecart")
-// 		});
 
 downloadPDF($("#organizationName").val(),$("#organizationAddress").val(),$("#organizationGST").val(),
 $("#organizationPhone").val(),$("#organizationState").val());
@@ -436,6 +432,12 @@ async function downloadPDF(name,address,gst,phone,state) {
           
           var pName = productList[i].split("XXX")[0];
 
+          orders.push({
+            productName: pName,
+            quantity: parseInt(productList[i].split("XXX")[1]),
+            price: parseFloat(productList[i].split("XXX")[2])/parseFloat(productList[i].split("XXX")[1])
+          });
+
           if(pName.length>30){
                //ProductName
               firstPage.drawText("" + productList[i].split("XXX")[0].substring(0, 30).toUpperCase()+"-", {
@@ -614,6 +616,31 @@ async function downloadPDF(name,address,gst,phone,state) {
 
         // Trigger the browser to download the PDF document
   download(pdfBytes, "porformainvoice.pdf", "application/pdf");
+
+
+  var postJson = {
+    name: name,
+    address: address + "  "+state,
+    gst: gst,
+    phone: phone,
+    orders: orders,
+    env: false
+  };
+
+
+  $.ajax({
+    url: API_URL+'/api/mail/porforma',
+    type: 'POST',
+    dataType: 'json',
+    data: JSON.stringify(postJson),
+    success: function(data){
+      
+    },
+    error: function(e){
+      
+    }
+  });
+
 }
 
 
