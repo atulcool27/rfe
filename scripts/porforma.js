@@ -150,18 +150,6 @@ function startDownload() {
 
 function downloadProforma(){
 
-  $.ajax({
-    url: API_URL+'/api/mail/test',
-    type: 'GET',
-    dataType: 'json',
-    success: function(data){
-      
-    },
-    error: function(e){
-      
-    }
-  });
-
     var test = 1;
 
 if($("#organizationName").val() === ""){
@@ -645,6 +633,7 @@ async function downloadPDF(name,address,gst,phone,state) {
     url: API_URL+'/api/mail/porforma',
     type: 'POST',
     dataType: 'json',
+    contentType: 'application/json',
     data: JSON.stringify(postJson),
     success: function(data){
       
