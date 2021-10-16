@@ -625,7 +625,7 @@ async function downloadPDF(name,address,gst,phone,state) {
     gst: gst,
     phone: phone,
     orders: orders,
-    env: false
+    env: true
   };
 
 
