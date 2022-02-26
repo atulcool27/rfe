@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Racekon Industries Private Limited</title>
+  <meta content="" name="description">
+
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../images/favicon.ico" rel="icon">
+  
+
+  <!-- Google Fonts -->
+  
+  <!-- Vendor CSS Files -->
+  <link href="../styles/bootstrap.min.css" rel="stylesheet">
+  <link href="../styles/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/google-fonts.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+  <link href="../styles/daystyle.css" rel="stylesheet">
+  <link href="../styles/bootstrap-icons.css" rel="stylesheet">
+  <link href="../styles/remixicon.css" rel="stylesheet">
+  <link href="../styles/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../styles/glightbox.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+ 
+<script src="../scripts/jquery-3.2.1.min.js"></script> 
+<script src="../scripts/popper.min.js"></script>
+<script src="../scripts/bootstrap.min.js"></script>
+<script src="../scripts/bootbox.js"></script>
+<script src="../scripts/pdf-lib.js"></script>
+<script src="https://unpkg.com/downloadjs@1.4.7"></script>
+
+  <!-- Google Fonts -->
+  
+  <!-- Vendor CSS Files -->
+
+    
+
+  <!-- Template Main CSS File -->
+
+
+
+  
+</head>
+
+<body>
+<!-- 
+
+<div id="loading">
+	<div class="d-flex justify-content-center">
+  <div class="spinner-border" id="loading-image" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+</div>  
+
+ -->
+
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center bg-white text-dark">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="fas fa-mobile-alt phone-icon"></i><a href="tel:18001239879" class="text-dark mr-3"> 1800 1239 879</a>
+        <i class="far fa-envelope"></i><a href="mailto:racekon@gmail.com" class="text-primary mr-3"></a>
+        <a href="https://www.facebook.com/RACEKON.INDUSTRIES" class="text-white mr-3"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/racekon_industries_pvt_ltd/" class="text-white mr-3"><i class="fab fa-instagram"></i></a>
+        <a href="https://api.whatsapp.com/send?phone=919999458880" class="text-white"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="social-links d-none d-md-block">
+        <a href="https://www.facebook.com/RACEKON.INDUSTRIES" class="facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/racekon_industries_pvt_ltd/" class="instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://api.whatsapp.com/send?phone=919999458880" class="linkedin"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="../">RACEKON</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto" href="../">Home</a></li>
+          <li><a class="nav-link scrollto active" href="porforma_invoice.html">Proforma Invoice</a></li>
+        </ul>
+        <i class="fas fa-bars mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+  
+
+  
+  <section id="hero" class="d-flex align-items-center" style="background-image: url('../images/products/porforma.jpg'); height: calc(100vh - 110px);">
+
+    <div class="container">
+      <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center">
+      
+        <h1 data-aos="fade-up">Proforma Invoice</h1>
+        	
+        
+          
+        </div>
+        
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  <main id="main">
+    <!-- ======= About Section ======= -->
+
+		
+	<!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials">
+
+      <div class="container" data-aos="fade-up">
+      
+      
+      
+      
+
+        <header class="section-header mb-5 float">
+          <h1 style="text-align: center;">
+          <a class="badge badge-pill" onclick="startDownload()" >  <div class="nav-link navbar-link-2 waves-effect" style="cursor: pointer;">
+                <span id="checkoutCount" name="checkoutCount" class="badge badge-pill badge-danger fa-1x">0</span>
+                <i class="fas fa-shopping-cart text-primary  pl-0 fa-2x"></i>
+               <i class="far fa-2x text-primary"></i>
+           </div></a>  </h1>
+          <button data-toggle="modal" data-target="#performaModal" id="downlodModal" name="downloadModal" hidden ></button>
+          <h4 style="text-align: center;">Click Cart after adding some products.</h4>
+          <button data-toggle="modal" data-target="#productModal" id="changeModal" name="changeModal" hidden></button>
+         
+        </header>
+
+        <div class="swiper-container" data-aos="fade-up" data-aos-delay="200">
+
+          
+              <div id="products"></div>
+         
+
+          
+          <div class="swiper-pagination mt-5"></div>
+        </div>
+
+      </div>
+
+    </section><!-- End Testimonials Section -->
+		
+
+ 
+  </main><!-- End #main -->
+
+
+
+<!-- Modal Login / Register -->
+    <div class="modal fade show" id="performaModal" tabindex="-1" role="dialog" aria-modal="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+
+            <!-- Pills -->
+            <ul class="nav md-pills nav-justified pills-primary">
+              <!-- <li class="nav-item">
+                <a class="nav-link border border-primary border-rounded" data-toggle="tab"
+                  href="#modalLoginRegister-login2" role="tab" aria-selected="true">Login</a>
+              </li> -->
+                <h3 class="text-primary ml-5">Proforma Invoice.</h3>
+            </ul>
+            <!-- Pills -->
+
+            <!-- Content -->
+            <div class="tab-content py-0">
+              <!-- Second panel -->
+              <div class="tab-pane fade in show active" id="modalLoginRegister-register2" role="tabpanel">
+
+                <!-- Register form -->
+                <form id="perForm" name="perForm" class="pt-2">
+
+                  <div class="md-form">
+                    <i class="fas fa-users prefix"></i>
+                    <input type="text" id="organizationName" name="organizationName" class="form-control"  placeholder="Your Organization Name" required>
+                    <label data-error="wrong" data-success="right" ></label>
+                  </div>
+                  <div class="md-form">
+                    <i class="fas fa-map-marker-alt prefix"></i>
+                    <input type="text" id="organizationAddress" name="organizationAddress" class="form-control"  placeholder="Corporate Address" maxlength="46" required>
+                    <label data-error="wrong" data-success="right" for="organizationAddress"></label>
+                  </div>
+                  <div class="md-form">
+                    <i class="fas fa-map-marker-alt prefix"></i>
+                    <input type="text" id="organizationState" name="organizationState" class="form-control" maxlength="24" placeholder="Which State Of India ?" required>
+                    <label data-error="wrong" data-success="right" for="organizationState"></label>
+                  </div>
+                  <div class="md-form">
+                    <i class="far fa-credit-card prefix"></i>
+                    <input type="text" id="organizationGST" name="organizationGST" class="form-control"  placeholder="15-Digit Valid Indian GST Number" required>
+                    <label data-error="wrong" data-success="right" for="organizationGST"></label>
+                  </div>
+				   <div class="md-form">
+                    <i class="fas fa-mobile-alt prefix"></i>
+                    <input type="text" id="organizationPhone" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"  name="organizationPhone" class="form-control" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" placeholder="10-Digit Valid Phone Number." required>
+                    <label data-error="wrong" data-success="right" for="organizationPhone"></label>
+                  </div>	
+
+                  <div class="text-center">
+                    <button type="button" class="btn btn-success my-2" onclick="downloadProforma()">Download</button>
+                  </div>
+
+                </form>
+                <!-- Register form -->
+
+              </div>
+              <!-- Second panel -->
+
+            </div>
+            <!-- Content -->
+
+          </div>
+          <div class="modal-footer">
+           <button type="button" class="btn btn-outline-primary waves-effect waves-light" data-dismiss="modal" hidden>Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Login / Register -->
+
+
+  
+
+    <div class="modal fade show" id="productModal" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+                 <!-- Pills -->
+            <ul class="nav md-pills nav-justified pills-primary">
+                
+                  <h3 class="text-primary ml-5">Change Name/Price</h3>
+              </ul><hr>
+              <!-- Pills -->
+
+               <div  id="priceForm" name="priceForm" >
+
+               </div>
+  
+            </div>
+            <div class="modal-footer">
+             <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" onclick="showInfo()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+   
+
+  
+
+
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+  
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Racekon Industries Private Limited 2021</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+      Designed by <a href="mailto:kumaratulbusiness@gmail.com">Atul Kumar</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></a>
+  <div id="preloader"></div>
+
+
+
+
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fas fa-caret-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../scripts/aos.js"></script>
+  <script src="../scripts/swiper-bundle.min.js"></script>
+  <script src="../scripts/glightbox.min.js"></script>
+  
+
+  <!-- Template Main JS File -->
+  <script src="../scripts/daymain.js"></script>
+  <script src="../scripts/bill.js"></script>
+  
+
+</body>
+
+</html>
