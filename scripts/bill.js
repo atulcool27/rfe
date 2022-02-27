@@ -5,7 +5,6 @@ var orders=[];
 var size=0;
 
 $(document).ready(function () {
-
      var cart = localStorage.getItem("racecart");
      if(cart === null){
          cart = "";
@@ -14,59 +13,111 @@ $(document).ready(function () {
      }
      localStorage.setItem("racecart","");
 
+     LoadLatestProductData();
        
-        var imageList = [];
-        $.ajax({
-            url: 'https://racekonindustries.in/json/productlist.json',
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                var optionList = "";
-                for (var i = 1; i < 101; i++) {
-                    optionList += '<option value="' + i + '">' + i + '</option>';
-                }
-
-                var productDiv = '<div class="row">';
-                
-                var priceDiv = '';
-                size=data.length;
-                for (var i = 0; i < data.length; i++) {
-                     priceDiv += '<div class="row">';
-
-                    product = data[i];
-                    var imgName = product.productImageName + ".jpg";
-                    var price = product.productPrice.toLocaleString('en-IN', {
-                        maximumFractionDigits: 2,
-                        currency: 'INR'
-                    });
-
-                    productDiv += '<div class="col-md-6 col-lg-4 mb-2"> <div class="card border-primary h-100"> <div class="view zoom z-depth-2 rounded"> <img class="img-fluid w-100 myImages" onerror="javascript:this.src=\'../images/products/default.jpg\'" style="width:100%; height: 100%;" id="img' + product.productId + '" src="../images/products/'+imgName+'"> </div>  <div class="card-body"> <div class="text-center pt-4">  <h6 class="text-dark font-weight-light lead fas" id="name'+product.productId+'">' + product.productName + '</h6>  </div> </div> <div class="card-footer bg-white"> <h6 class="mb-3"><span class="text-danger">₹</span><span class="text-danger font-weight-bold" id="price'+product.productId+'" onclick="changePrice('+product.productId+')">' + price + '</span></h6>  <div class="row"><div class="col-6"><button type="button" id="cartBtn' + product.productId + '" onclick="addToCart(' + product.productId + ')" class="btn btn-primary btn-sm mr-1">Add to cart</button></div> <div class="col-6"> <select id="select' + product.productId + '" onchange="myCartQuan('+product.productId+')"> <option selected value="1" hidden>1</option>' + optionList + '</select> </div> </div> </div> </div> </div>';
-                    
-                    priceDiv += '<div class="col-7"><input class="form-control" id="iname'+i+'" name="iname'+i+'" type="text" value="'+product.productName+'"> </div>'+
-                    '<div class="col-3"><input class="form-control" type="number" id="input'+i+'" name="input'+i+'" value="'+product.productPrice+'"> </div><input  id="pod'+i+'" name="pod'+i+'" value="'+product.productId+'" hidden>';
-
-                    priceDiv += '</div><hr>';
-                }
-                productDiv += '';
-
-                document.getElementById("products").innerHTML = productDiv;
-
-                document.getElementById("priceForm").innerHTML = priceDiv;
-            },
-            error: function (e) {
-                bootbox.dialog({
-                    message: "Porforma Invoice is not available Currently. Please try after some time.",
-                    size: 'small',
-                    closeButton: false,
-                    backdrop: true
-                });
-            }
-        });
-
-        
-        $("#changeModal").trigger("click");
-        
 });
+
+
+function LoadLatestProductData(){
+    var imageList = [];
+    $.ajax({
+        url: 'https://getpantry.cloud/apiv1/pantry/ec5b33ef-b5cb-4401-9f7b-a620aa648233/basket/products',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            data = data.products;
+            var optionList = "";
+            for (var i = 1; i < 101; i++) {
+                optionList += '<option value="' + i + '">' + i + '</option>';
+            }
+
+            var productDiv = '<div class="row">';
+            
+            var priceDiv = '';
+            size=data.length;
+            for (var i = 0; i < data.length; i++) {
+                priceDiv += '<div class="row">';
+
+                product = data[i];
+                var imgName = product.productImageName + ".jpg";
+                var price = product.productPrice.toLocaleString('en-IN', {
+                    maximumFractionDigits: 2,
+                    currency: 'INR'
+                });
+
+                productDiv += '<div class="col-md-6 col-lg-4 mb-2"> <div class="card border-primary h-100"> <div class="view zoom z-depth-2 rounded"> <img class="img-fluid w-100 myImages" onerror="javascript:this.src=\'../images/products/default.jpg\'" style="width:100%; height: 100%;" id="img' + product.productId + '" src="../images/products/'+imgName+'"> </div>  <div class="card-body"> <div class="text-center pt-4">  <h6 class="text-dark font-weight-light lead fas" id="name'+product.productId+'">' + product.productName + '</h6>  </div> </div> <div class="card-footer bg-white"> <h6 class="mb-3"><span class="text-danger">₹</span><span class="text-danger font-weight-bold" id="price'+product.productId+'" onclick="changePrice('+product.productId+')">' + price + '</span></h6>  <div class="row"><div class="col-6"><button type="button" id="cartBtn' + product.productId + '" onclick="addToCart(' + product.productId + ')" class="btn btn-primary btn-sm mr-1">Add to cart</button></div> <div class="col-6"> <select id="select' + product.productId + '" onchange="myCartQuan('+product.productId+')"> <option selected value="1" hidden>1</option>' + optionList + '</select> </div> </div> </div> </div> </div>';
+                
+                priceDiv += '<div class="col-7"><input class="form-control" id="iname'+i+'" name="iname'+i+'" type="text" value="'+product.productName+'"> </div>'+
+                '<div class="col-3"><input class="form-control" type="number" id="input'+i+'" name="input'+i+'" value="'+product.productPrice+'"> </div><input  id="pod'+i+'" name="pod'+i+'" value="'+product.productId+'" hidden>';
+
+                priceDiv += '</div><hr>';
+            }
+            productDiv += '';
+
+            document.getElementById("products").innerHTML = productDiv;
+
+            document.getElementById("priceForm").innerHTML = priceDiv;
+        },
+        error: function (e) {
+          defaultProductData();
+        }
+    });
+
+    
+    $("#changeModal").trigger("click");
+    
+}
+
+
+function defaultProductData(){
+  $.ajax({
+      url: 'https://racekonindustries.in/json/productlist.json',
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+          
+          var optionList = "";
+          for (var i = 1; i < 101; i++) {
+              optionList += '<option value="' + i + '">' + i + '</option>';
+          }
+
+          var productDiv = '<div class="row">';
+          
+          var priceDiv = '';
+          size=data.length;
+          for (var i = 0; i < data.length; i++) {
+              priceDiv += '<div class="row">';
+
+              product = data[i];
+              var imgName = product.productImageName + ".jpg";
+              var price = product.productPrice.toLocaleString('en-IN', {
+                  maximumFractionDigits: 2,
+                  currency: 'INR'
+              });
+
+              productDiv += '<div class="col-md-6 col-lg-4 mb-2"> <div class="card border-primary h-100"> <div class="view zoom z-depth-2 rounded"> <img class="img-fluid w-100 myImages" onerror="javascript:this.src=\'../images/products/default.jpg\'" style="width:100%; height: 100%;" id="img' + product.productId + '" src="../images/products/'+imgName+'"> </div>  <div class="card-body"> <div class="text-center pt-4">  <h6 class="text-dark font-weight-light lead fas" id="name'+product.productId+'">' + product.productName + '</h6>  </div> </div> <div class="card-footer bg-white"> <h6 class="mb-3"><span class="text-danger">₹</span><span class="text-danger font-weight-bold" id="price'+product.productId+'" onclick="changePrice('+product.productId+')">' + price + '</span></h6>  <div class="row"><div class="col-6"><button type="button" id="cartBtn' + product.productId + '" onclick="addToCart(' + product.productId + ')" class="btn btn-primary btn-sm mr-1">Add to cart</button></div> <div class="col-6"> <select id="select' + product.productId + '" onchange="myCartQuan('+product.productId+')"> <option selected value="1" hidden>1</option>' + optionList + '</select> </div> </div> </div> </div> </div>';
+              
+              priceDiv += '<div class="col-7"><input class="form-control" id="iname'+i+'" name="iname'+i+'" type="text" value="'+product.productName+'"> </div>'+
+              '<div class="col-3"><input class="form-control" type="number" id="input'+i+'" name="input'+i+'" value="'+product.productPrice+'"> </div><input  id="pod'+i+'" name="pod'+i+'" value="'+product.productId+'" hidden>';
+
+              priceDiv += '</div><hr>';
+          }
+          productDiv += '';
+
+          document.getElementById("products").innerHTML = productDiv;
+
+          document.getElementById("priceForm").innerHTML = priceDiv;
+      },
+      error: function (e) {
+          bootbox.dialog({
+              message: "Porforma Invoice is not available Currently. Please try after some time.",
+              size: 'small',
+              closeButton: false,
+              backdrop: true
+          });
+      }
+  });
+}
 
 function showInfo(){
     for (var i = 0; i < size; i++) {
