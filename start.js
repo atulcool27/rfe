@@ -136,13 +136,11 @@ function deleteCustomerRequest(id){
                 $("#customertype").append($("<option />").val(data.customer[i].id).text(data.customer[i].buyerName+"\t"+data.customer[i].addressLine1));
             }
             $("#loading").hide();
-            $("#customertypeform").show();
-            $("#customertypebtn").show();
+            $("#maindiv").show(); $("#maindiv2").show();
             },
         error:function(e){
             $("#loading").hide();
-            $("#customertypeform").show();
-            $("#customertypebtn").show();
+            $("#maindiv").show(); $("#maindiv2").show();
         }
     }); 
 }
