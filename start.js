@@ -350,7 +350,7 @@ function deleteProductRequest(id){
 function downloadPorforma(){
 
     var billtype=$("#billtype").val();
-    if(billtype[0]===""){
+    if(billtype===""){
         bootbox.dialog({
             message: "Please Select Bill Type (UP or Other State).",
             closeButton: false,
@@ -362,7 +362,7 @@ function downloadPorforma(){
 
     var count=1;
 
-    if(billtype[0]==="up"){
+    if(billtype==="up"){
         count=parseInt(porformaSchema.upinvoiceNo)+1;
     }else{
         count=parseInt(porformaSchema.nonupinvoiceNo)+1;
@@ -428,7 +428,7 @@ function downloadPorforma(){
                         item["customer"]=obj;
                         item["products"]=products;
                         item["billDate"]=document.getElementById("invoicedate").value;
-                        if(billtype[0]==="up"){
+                        if(billtype==="up"){
                             item["upinvoiceNo"]=$('#invoicenumber','.bootbox').val();
                             item["nonupinvoiceNo"]=porformaSchema.nonupinvoiceNo;
                         }else{
