@@ -1,6 +1,4 @@
 
-var url='http://localhost:8080';
-//var url='https://racekon.herokuapp.com';
 var porformaSchema;
 var billtype='';
 
@@ -10,6 +8,7 @@ $(document).ready(function(){
      $("#maindiv2").hide();
      $("#loading").show();
 
+   
     if(localStorage.getItem(new Date().toLocaleDateString("en-US")) == null){
         localStorage.removeItem(previousToken);
         window.location.href="/login.html";
