@@ -1,5 +1,4 @@
 
-var url='http://localhost:8080';
 
 $(document).ready(function(){
     $(".main-item").hide();
@@ -11,11 +10,12 @@ $(document).ready(function(){
         error: function(e){}
     });
 
-    if(localStorage.getItem("token")!==null || localStorage.getItem("token")!==undefined){
-        //check if expired
-        $.ajax({
-
-        });
+    var d = new Date();
+    var previousToken= new Date(d.setDate(d.getDate()-1)).toLocaleDateString("en-US");
+    if(localStorage.getItem(new Date().toLocaleDateString("en-US")) == null){
+        localStorage.removeItem(previousToken);
+    }else{
+        window.location.href=dashboard;
     }
 
 });
@@ -48,14 +48,14 @@ function login(){
         success: function(data){
             $("#maindiv").show();
             $(".main-item").hide();
-            localStorage.setItem("token",data.token);
+            localStorage.setItem(new Date().toLocaleDateString("en-US"),data.message);
             window.location.href=data.nextPage;
         },
         error: function(e){
             $("#maindiv").show();
             $(".main-item").hide();
             bootbox.dialog({ 
-                message: '<label class="lead text-danger">'+JSON.stringify(e.responseJSON.message)+'</label>', 
+                message: '<small class="text-danger">'+e.responseJSON.message+'</small>', 
                 closeButton: false,
                 backdrop: true
             });

@@ -1,15 +1,22 @@
 
-//var url='http://localhost:8080';
-var url='https://racekon.herokuapp.com';
+var url='http://localhost:8080';
+//var url='https://racekon.herokuapp.com';
 var porformaSchema;
 var billtype='';
 
 
 $(document).ready(function(){
-    $("#maindiv").hide(); $("#maindiv2").hide();
-    $("#maindiv2").hide();
-    $("#loading").show();
-    refresh();
+     $("#maindiv").hide(); $("#maindiv2").hide();
+     $("#maindiv2").hide();
+     $("#loading").show();
+
+    if(localStorage.getItem(new Date().toLocaleDateString("en-US")) == null){
+        localStorage.removeItem(previousToken);
+        window.location.href="/login.html";
+    }else{
+        refresh();
+    }
+    
     
 });
 
@@ -17,6 +24,9 @@ function refresh(){
     $.ajax({
         url: url+'/api/xl/load',
         type: 'GET',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem(new Date().toLocaleDateString("en-US")));
+        },
         success:function(data){
             porformaSchema=data;
             $('#customertype').empty().append('<option selected value="">Select Customer and Address</option>')
@@ -86,6 +96,9 @@ function addNewCustomerRequest(customerjson){
         dataType: 'json',
         contentType: "application/json",
         data: JSON.stringify(customerjson),
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem(new Date().toLocaleDateString("en-US")));
+        },
         success:function(data){
             porformaSchema=data;
             $('#customertype').empty().append('<option selected value="">Select Customer and Address</option>')
@@ -109,6 +122,9 @@ function editCustomerRequest(customerjson){
         dataType: 'json',
         contentType: "application/json",
         data: JSON.stringify(customerjson),
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem(new Date().toLocaleDateString("en-US")));
+        },
         success:function(data){
             porformaSchema=data;
             $('#customertype').empty().append('<option selected value="">Select Customer and Address</option>')
@@ -129,6 +145,9 @@ function deleteCustomerRequest(id){
     $.ajax({
         url: url+'/api/xl/customer/delete?id='+id,
         type: 'DELETE',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem(new Date().toLocaleDateString("en-US")));
+        },
         success:function(data){
             porformaSchema=data;
             $('#customertype').empty().append('<option selected value="">Select Customer and Address</option>')
@@ -268,6 +287,9 @@ function addNewProductRequest(json){
         dataType: 'json',
         contentType: "application/json",
         data: JSON.stringify(json),
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem(new Date().toLocaleDateString("en-US")));
+        },
         success:function(data){
             porformaSchema=data;
             var table='';
@@ -320,6 +342,9 @@ function deleteProductRequest(id){
     $.ajax({
         url: url+'/api/xl/product/delete?id='+id,
         type: 'DELETE',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem(new Date().toLocaleDateString("en-US")));
+        },
         success:function(data){
             porformaSchema=data;
             var table='';
@@ -461,6 +486,9 @@ function porformaInvoiceRequest(billjson,billtype){
         dataType: 'json',
         contentType: "application/json",
         data: JSON.stringify(billjson),
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem(new Date().toLocaleDateString("en-US")));
+        },
         success:function(data){
             window.location.href=data.token;
             $("#loading").hide();
@@ -474,6 +502,16 @@ function porformaInvoiceRequest(billjson,billtype){
     });   
 }
 
+
+
+
+function doLogout(){
+    var d = new Date();
+        var previousToken= new Date(d.setDate(d.getDate()-1)).toLocaleDateString("en-US");
+        localStorage.removeItem(new Date().toLocaleDateString("en-US"));
+        localStorage.removeItem(previousToken);
+        window.location.href="/login.html";
+}
 
 
 
