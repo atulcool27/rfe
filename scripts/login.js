@@ -10,10 +10,9 @@ $(document).ready(function(){
         error: function(e){}
     });
 
-    var d = new Date();
-    var previousToken= new Date(d.setDate(d.getDate()-1)).toLocaleDateString("en-US");
-    if(localStorage.getItem(new Date().toLocaleDateString("en-US")) == null){
-        localStorage.removeItem(previousToken);
+    
+    if(currentTokenValue == null){
+        localStorage.removeItem(previousTokenKey);
     }else{
         window.location.href=dashboard;
     }

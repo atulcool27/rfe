@@ -9,8 +9,8 @@ $(document).ready(function(){
      $("#loading").show();
 
    
-    if(localStorage.getItem(new Date().toLocaleDateString("en-US")) == null){
-        localStorage.removeItem(previousToken);
+    if(currentTokenValue == null){
+        localStorage.removeItem(previousTokenKey);
         window.location.href="/login.html";
     }else{
         refresh();
@@ -454,9 +454,9 @@ function downloadPorforma(){
                         item["billDate"]=document.getElementById("invoicedate").value;
                         if(billtype==="up"){
                             item["upinvoiceNo"]=$('#invoicenumber','.bootbox').val();
-                            item["nonupinvoiceNo"]=porformaSchema.nonupinvoiceNo;
+                            item["nonupinvoiceNo"]=$('#invoicenumber','.bootbox').val();
                         }else{
-                            item["upinvoiceNo"]=porformaSchema.upinvoiceNo;
+                            item["upinvoiceNo"]=$('#invoicenumber','.bootbox').val();
                         item["nonupinvoiceNo"]=$('#invoicenumber','.bootbox').val();
                         }
                         
@@ -505,10 +505,8 @@ function porformaInvoiceRequest(billjson,billtype){
 
 
 function doLogout(){
-    var d = new Date();
-        var previousToken= new Date(d.setDate(d.getDate()-1)).toLocaleDateString("en-US");
-        localStorage.removeItem(new Date().toLocaleDateString("en-US"));
-        localStorage.removeItem(previousToken);
+        localStorage.removeItem(currentTokenKey);
+        localStorage.removeItem(previousTokenKey);
         window.location.href="/login.html";
 }
 
