@@ -369,7 +369,7 @@ function deleteProductRequest(id){
 }
 
 
-
+var count;
 
 function downloadPorforma(){
 
@@ -384,13 +384,20 @@ function downloadPorforma(){
         return false;
     }
 
-    var count=1;
+    
 
-    if(billtype==="up"){
-        count=parseInt(porformaSchema.upinvoiceNo)+1;
-    }else{
-        count=parseInt(porformaSchema.nonupinvoiceNo)+1;
+    if(porformaSchema.upinvoiceNo===null || porformaSchema.upinvoiceNo===undefined){
+        porformaSchema.upinvoiceNo=0;
     }
+
+    count=parseInt(porformaSchema.upinvoiceNo)+1;
+
+
+    // if(billtype==="up"){
+        
+    // }else{
+    //     count=parseInt(porformaSchema.nonupinvoiceNo)+1;
+    // }
 
 
     var products=[]
@@ -453,14 +460,13 @@ function downloadPorforma(){
                         item["products"]=products;
                         item["billDate"]=document.getElementById("invoicedate").value;
                         if(billtype==="up"){
-                            item["upinvoiceNo"]=$('#invoicenumber','.bootbox').val();
-                            item["nonupinvoiceNo"]=$('#invoicenumber','.bootbox').val();
+                            item["upinvoiceNo"]=count;
+                            item["nonupinvoiceNo"]=count;
                         }else{
-                            item["upinvoiceNo"]=$('#invoicenumber','.bootbox').val();
-                        item["nonupinvoiceNo"]=$('#invoicenumber','.bootbox').val();
+                            item["upinvoiceNo"]=count;
+                        item["nonupinvoiceNo"]=count;
                         }
                         
-                
 
                         porformaSchema1.push(item);
                         porformaInvoiceRequest(porformaSchema1,billtype);
@@ -490,8 +496,7 @@ function porformaInvoiceRequest(billjson,billtype){
         },
         success:function(data){
             window.location.href=data.token;
-            $("#loading").hide();
-            $("#maindiv").show(); $("#maindiv2").show();
+            refresh();
             },
         error:function(e){
             alert(JSON.stringify(e));
