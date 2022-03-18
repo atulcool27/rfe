@@ -1,8 +1,8 @@
 var selectedUser1;
 var newUserMenuList=[];
 var password;
-var homeurl='https://racekonindustries.in/';
-
+//var homeurl='https://racekonindustries.in/';
+var homeurl='http://localhost:5500/';
 
 
 $(document).ready(function(){

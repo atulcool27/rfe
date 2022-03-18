@@ -22,6 +22,22 @@ $(document).ready(function(){
         refresh();
     }
     
+    var raceuserinfo = JSON.parse(localStorage.getItem("raceuserinfo"));
+    var tempdata;
+    for (var i = 0; i < raceuserinfo.length; i++) {
+        if (raceuserinfo[i].username === localStorage.getItem("raceuser")) {
+            tempdata = raceuserinfo[i];
+        }
+    }
+
+    if(tempdata===undefined){
+        doLogout();
+    }
+    var menu = tempdata.accessList;
+    document.getElementById("menudiv").innerHTML = '';
+    for (var i = 0; i < menu.length; i++) {
+        document.getElementById("menudiv").innerHTML += '<li class="nav-item"> <a class="nav-link  text-light" href="' + homeurl + menu[i].pageLink + '">' + menu[i].pageName + '</a></li>';
+    }
     
 });
 
