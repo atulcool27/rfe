@@ -1,8 +1,7 @@
 var selectedUser1;
 var newUserMenuList=[];
 var password;
-//var homeurl='https://racekonindustries.in/';
-var homeurl='http://localhost:5500/';
+
 
 
 $(document).ready(function(){
@@ -37,6 +36,7 @@ $(document).ready(function(){
     for (var i = 0; i < menu.length; i++) {
         document.getElementById("menudiv").innerHTML += '<li class="nav-item"> <a class="nav-link  text-light" href="' + homeurl + menu[i].pageLink + '">' + menu[i].pageName + '</a></li>';
     }
+    document.getElementById("menudiv").innerHTML +='<li class="nav-item active"><div class="nav-link  text-light" style="cursor: pointer;" onclick="doLogout()">Logout</div></li>';
 });
 
 
@@ -231,6 +231,7 @@ function updateManageUserAjax(item){
             for (var i = 0; i < menu.length; i++) {
                 document.getElementById("menudiv").innerHTML += '<li class="nav-item"> <a class="nav-link  text-light" href="' + homeurl + menu[i].pageLink + '">' + menu[i].pageName + '</a></li>';
             }
+            document.getElementById("menudiv").innerHTML +='<li class="nav-item active"><div class="nav-link  text-light" style="cursor: pointer;" onclick="doLogout()">Logout</div></li>';
 
             },
         error:function(e){
