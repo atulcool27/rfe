@@ -46,6 +46,8 @@ function login(){
         data: JSON.stringify(data),
         success: function(data){
             localStorage.setItem("raceuser", $("#useremail").val());
+            localStorage.setItem("menuList", JSON.stringify(data.menuList));
+            localStorage.setItem("raceuserinfo", JSON.stringify(data.user));
             $("#maindiv").show();
             $(".main-item").hide();
             localStorage.setItem(new Date().toLocaleDateString("en-US"),data.message);
@@ -53,6 +55,8 @@ function login(){
         },
         error: function(e){
             localStorage.removeItem("raceuser");
+            localStorage.removeItem("menuList");
+            localStorage.removeItem("raceuserinfo");
             $("#maindiv").show();
             $(".main-item").hide();
             bootbox.dialog({ 

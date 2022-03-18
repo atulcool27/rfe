@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/styles/bootstrap.min.css" >
+    <link rel="stylesheet" href="/styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="/scripts/jquery-3.2.1.min.js"></script>
+    <script src="/scripts/popper.min.js" > </script>
+    <script src="/scripts/bootstrap.min.js"></script> 
+    <script src="/scripts/bootbox.js" ></script>
+    <script src="/scripts/config.js"></script>
+    <link rel="stylesheet" href="/styles/loading.css">
+    <title>Porforma Invoice</title>
+    <link rel="shortcut icon" type="image/jpg" href="/images/favicon.ico"/>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-info  justify-content-between mb-20">
+      <a class="navbar-brand text-light" href="#"  id="welcometext" name="welcometext"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <div id="menudiv" name="menudiv"></div>
+              
+              <li class="nav-item active">
+                <div class="nav-link  text-light" style="cursor: pointer;" onclick="doLogout()">Logout</div>
+              </li>
+        </ul>
+      </div>
+    </nav>
+
+
+    <div id="maindiv" name="maindiv">
+
+          <div class="container lead" id="contentdiv" name="contentdiv">
+                <div class="row jumbotron">
+                          <div class="col-md-12 col-lg-4 col-xs-12 col-sm-12  bg-info text-white">
+                            <table class="table">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col">Manage Users</th>
+                                  <th scope="col"></th>
+                                  <th ></th>
+                                </tr>
+                              </thead>
+                              <tbody id="manageuserbody" name="manageuserbody">
+                                
+                                
+                              </tbody>
+
+                          </div><!--End of Column1-->
+                  
+                          <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6 bg-secondary text-white">
+
+                            
+                            
+                              
+                          </div><!--End of Col-->
+                  </div><!--End row-->
+            </div><!--ENd Container-->
+    </div><!--ENd main-->
+
+
+    
+    
+    
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/scripts/dashboard.js"></script>
+    <script type="text/template" id="manageuser-template">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Username</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th ></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <select class="form-control"  id="selectusernamebody" name="selectusernamebody">
+        <option selected value="" hidden>List</option>
+    </select>
+    </script>
+
+    <script type="text/template" id="manageuser2-template">
+      <form>
+        <div class="row">
+            <div class="form-group col-6">
+              <select class="form-control" id="temprole" name="temprole">
+                <option value="ADMIN">ADMIN</option>
+                <option value="USER">USER</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" id="tempname" name="tempname" placeholder="Username">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" value="PASSWORD" id="temppass" name="temppass" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-control" id="tempemail" name="tempemail" placeholder="Email Address">
+        </div>
+            <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <select class="form-control" id="tempstatus" name="tempstatus">
+                      <option value="true">Active</option>
+                      <option value="false">Disabled</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                      <input type="text" class="form-control" id="tempmobile" name="tempmobile" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" pattern="\d{10}" maxlength="10" minlength="10" placeholder="Mobile Number - 10 digit">
+                    </div>
+                </div>
+            </div>
+      </form>
+      <div class="form-group">
+          <button class="btn bg-dark text-light" onclick="editMenuBarList()">Edit Menu Bar Access List</button>
+      </select>
+    </div>
+    </script>
+    
+    <script type="text/template" id="manageuser3-template">
+      <div>
+          List
+          <div class="form-group">
+            <select class="form-control" id="tempaccess" name="tempaccess">
+            </select>
+            <button class="btn" onclick="addToAccessList()"><i style="font-size: 30px;"  class="bi bi-plus-circle"></i></button>
+            <button class="btn" onclick="removeFromAccessList()"><i style="font-size: 30px;" class="bi bi-file-excel-fill"></i></button>
+          
+          </div>
+          Selected
+          <div class="form-group">
+            <select multiple class="form-control" id="tempaccess2" name="tempaccess2">
+            </select>
+          </div>
+        </div>
+    </script>
+</body>
+</html>
