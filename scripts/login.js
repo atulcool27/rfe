@@ -45,12 +45,14 @@ function login(){
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function(data){
+            localStorage.setItem("raceuser", $("#useremail").val());
             $("#maindiv").show();
             $(".main-item").hide();
             localStorage.setItem(new Date().toLocaleDateString("en-US"),data.message);
             window.location.href=data.nextPage;
         },
         error: function(e){
+            localStorage.removeItem("raceuser");
             $("#maindiv").show();
             $(".main-item").hide();
             bootbox.dialog({ 

@@ -8,6 +8,12 @@ $(document).ready(function(){
      $("#maindiv2").hide();
      $("#loading").show();
 
+     if(localStorage.getItem("raceuser")!==null && localStorage.getItem("raceuser")!==undefined){
+        document.getElementById("welcometext").innerHTML="Welcome, "+localStorage.getItem("raceuser");
+     }else{
+        document.getElementById("welcometext").innerHTML="Welcome, ";
+     }
+     
    
     if(currentTokenValue == null){
         localStorage.removeItem(previousTokenKey);
