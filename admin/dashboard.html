@@ -133,18 +133,23 @@
     
     <script type="text/template" id="manageuser3-template">
       <div>
-          List
+          <div class="form-group">
+            First Select then Click on Button.
+          </div>
+          
           <div class="form-group">
             <select class="form-control" id="tempaccess" name="tempaccess">
             </select>
-            <button class="btn" onclick="addToAccessList()"><i style="font-size: 30px;"  class="bi bi-plus-circle"></i></button>
-            <button class="btn" onclick="removeFromAccessList()"><i style="font-size: 30px;" class="bi bi-file-excel-fill"></i></button>
+            <button class="btn" onclick="addToAccessList()"><i style="font-size: 30px;"  class="bi bi-plus-circle"></i>Add</button>
+            <button class="btn" onclick="removeFromAccessList()"><i style="font-size: 30px;" class="bi bi-file-excel-fill"></i>Remove</button>
           
           </div>
-          Selected
+          <hr>
           <div class="form-group">
-            <select multiple class="form-control" id="tempaccess2" name="tempaccess2">
+            <select multiple class="form-control" id="tempaccess2" name="tempaccess2" hidden>
             </select>
+          </div>
+          <div class="form-group text-primary" id="labellist" name="labellist">
           </div>
         </div>
     </script>

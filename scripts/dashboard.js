@@ -187,18 +187,32 @@ function editMenuBarList(){
                 }
         }
     }
+
+    document.getElementById("labellist").innerHTML='';
+    var k=1;
+    $("#tempaccess2 option").each(function () {
+        document.getElementById("labellist").innerHTML +='<b>#'+(k++)+'. '+$(this).text()+'</b><br>';
+    });
 }
 
 
 function addToAccessList(){
-    console.log("remove: "+$("#tempaccess").val());
+    var k=1;
     $("#tempaccess2 option[value='"+$("#tempaccess").val()+"']").remove();
-    console.log("add: "+$("#tempaccess").val()+" text: "+$("#tempaccess  option:selected").val());
     $("#tempaccess2").append($("<option selected></option>").val($("#tempaccess").val()).text($("#tempaccess  option:selected").text()));
+    document.getElementById("labellist").innerHTML='';
+    $("#tempaccess2 option").each(function () {
+        document.getElementById("labellist").innerHTML+='<b>#'+(k++)+'. '+$(this).text()+'</b><br>';
+    });
 }
 
 function removeFromAccessList(){
+    var k=1;
     $("#tempaccess2 option[value='"+$("#tempaccess").val()+"']").remove();
+    document.getElementById("labellist").innerHTML='';
+    $("#tempaccess2 option").each(function () {
+        document.getElementById("labellist").innerHTML+='<b>#'+(k++)+'. '+$(this).text()+'</b><br>';
+    });
 }
 
 
