@@ -481,12 +481,15 @@ function downloadPorforma(){
                         item["customer"]=obj;
                         item["products"]=products;
                         item["billDate"]=document.getElementById("invoicedate").value;
+
+                        
+
                         if(billtype==="up"){
-                            item["upinvoiceNo"]=count;
-                            item["nonupinvoiceNo"]=count;
+                            item["upinvoiceNo"]=$('#invoicenumber','.bootbox').val();
+                            item["nonupinvoiceNo"]=$('#invoicenumber','.bootbox').val();
                         }else{
-                            item["upinvoiceNo"]=count;
-                        item["nonupinvoiceNo"]=count;
+                            item["upinvoiceNo"]=$('#invoicenumber','.bootbox').val();
+                        item["nonupinvoiceNo"]=$('#invoicenumber','.bootbox').val();
                         }
                         
 
