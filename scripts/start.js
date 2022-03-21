@@ -411,16 +411,17 @@ function downloadPorforma(){
     if(porformaSchema.upinvoiceNo===null || porformaSchema.upinvoiceNo===undefined){
         porformaSchema.upinvoiceNo=0;
     }
+    if(porformaSchema.nonupinvoiceNo===null || porformaSchema.nonupinvoiceNo===undefined){
+        porformaSchema.nonupinvoiceNo=0;
+    }
 
-    count=parseInt(porformaSchema.upinvoiceNo)+1;
+    if(porformaSchema.upinvoiceNo>=porformaSchema.nonupinvoiceNo){
+        count=parseInt(porformaSchema.upinvoiceNo)+1;
+    }else{
+        count=parseInt(porformaSchema.nonupinvoiceNo)+1;
+    }
 
-
-    // if(billtype==="up"){
-        
-    // }else{
-    //     count=parseInt(porformaSchema.nonupinvoiceNo)+1;
-    // }
-
+    
 
     var products=[]
     for(var i=0;i<porformaSchema.products.length;i++){
@@ -524,7 +525,6 @@ function porformaInvoiceRequest(billjson,billtype){
             refresh();
             },
         error:function(e){
-            alert(JSON.stringify(e));
             $("#loading").hide();
             $("#maindiv").show(); $("#maindiv2").show();
         }
