@@ -6,6 +6,7 @@ var billtype='';
 $(document).ready(function(){
      $("#maindiv").hide(); $("#maindiv2").hide();
      $("#maindiv2").hide();
+     $("#historyDiv").hide();
      $("#loading").show();
 
      if(localStorage.getItem("raceuser")!==null && localStorage.getItem("raceuser")!==undefined){
@@ -540,7 +541,61 @@ function doLogout(){
         window.location.href="/login.html";
 }
 
+var toggle=false;
+
+function showHistory(){
+    var history=porformaSchema.history;
+    document.getElementById("historyBody").innerHTML="";
+    if(!toggle){
+        document.getElementById("billnavtext").innerHTML='&nbsp;Close';
+        $("#maindiv").hide();
+        $("#historyDiv").show();
+        for(var i=0;i<porformaSchema.history.length;i++){
+            var customer = history[i].customer[0];
+            document.getElementById("historyBody").innerHTML+='<tr style="cursor: pointer;" ondblclick="historyInfo('+i+')" onclick="historyInfo('+i+')"><td>'+history[i].invoiceNumber+'</td><td>'+customer.buyerName+'</td><td>'+new Date(history[i].billDate).toUTCString().substring(0,17)+'</td></tr>';
+        }
+        toggle=true;
+    }else{
+        document.getElementById("billnavtext").innerHTML='&nbsp;Click to Check Bill History';
+        $("#maindiv").show();
+        $("#historyDiv").hide();
+        toggle=false;
+    }
+
+}
 
 
+var toggle2=false;
 
+function historyInfo(index){
+    var json = porformaSchema.history[index];
+    if(!toggle2){
+        var customer = json.customer;
+        var products = json.products;
+        var productStr = '<table class="table table-responsive table-hover ">';
+        productStr+="<thead class='table-info'><th>#</th><th>Name</th><th>Price</th><th>Quantity</th></thead><tbody>";
+        for(var i=0;i<products.length;i++){
+            productStr+="<tr><th>"+(i+1)+"</th><th>"+products[i].name+"</th><th>"+products[i].price+"</th><th>"+products[i].quan+"</th></tr>";
+        }
+        productStr+='</tbody></table>';
+        if(customer.length>0){
+            bootbox.dialog({
+                message: "<small><b>Name :</b> "+customer[0].buyerName+"<br>"+
+                "<b>ADDRESS :</b> "+customer[0].addressLine1+"<br>"+
+                ""+customer[0].addressLine2+"<br>"+
+                "<b>STATE :</b> "+customer[0].state+"<br>"+
+                "<b>MOBILE : </b>"+customer[0].mobile+"<br>"+
+                "<b>GST NUMBER : </b>"+customer[0].gst+"</small><br>"+
+                productStr,
+                closeButton: false,
+                backdrop: true
+            });
+        }else{
+        }
+        toggle2=true;
+    }else{
+        toggle2=false;
+    }
+    
+}
 
