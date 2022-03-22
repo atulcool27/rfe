@@ -573,7 +573,7 @@ function historyInfo(index){
         var customer = json.customer;
         var products = json.products;
         var productStr = '<table class="table table-responsive table-hover ">';
-        productStr+="<thead class='table-info'><th>#</th><th>Name</th><th>Price</th><th>Quantity</th></thead><tbody>";
+        productStr+="<thead class='table-info table-bordered'><th>#</th><th>Name</th><th>Price</th><th>Quantity</th></thead><tbody>";
         for(var i=0;i<products.length;i++){
             productStr+="<tr><th>"+(i+1)+"</th><th>"+products[i].name+"</th><th>"+products[i].price+"</th><th>"+products[i].quan+"</th></tr>";
         }
