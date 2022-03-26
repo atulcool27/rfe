@@ -35,8 +35,7 @@ $(document).ready(function(){
         document.getElementById("menudiv").innerHTML += '<li class="nav-item"> <a class="nav-link  text-light" href="' + homeurl + menu[i].pageLink + '">' + menu[i].pageName + '</a></li>';
     }
     document.getElementById("menudiv").innerHTML +='<li class="nav-item active"><div class="nav-link  text-light" style="cursor: pointer;" onclick="doLogout()">Logout</div></li>';
-    console.log(JSON.stringify(raceuserinfo));
-
+   
     document.getElementById("userlist").innerHTML='';
 
     for(var i=0;i<raceuserinfo.length;i++){
