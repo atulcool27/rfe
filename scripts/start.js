@@ -61,7 +61,7 @@ function refresh(){
                                                                 '<th><input id="name'+data.products[i].id+'" name="name'+data.products[i].id+'" type="text" value="'+data.products[i].name+'"></th>'+
                                                                 '<th><input id="price'+data.products[i].id+'" name="price'+data.products[i].id+'" type="number" value="'+data.products[i].price+'"></th>'+
                                                                 '<th><input id="quan'+data.products[i].id+'" name="quan'+data.products[i].id+'" type="number" value="1"></th>'+
-                                                                '<th><i style="cursor:pointer" onclick="deleteProduct('+data.products[i].id+')" class="bi bi-trash3-fill text-danger">DELETE</i></th></tr>';
+                                                                '<th><button onclick="deleteProduct('+data.products[i].id+')" class="btn text-danger align-text-top">DELETE</button></th></tr>';
             }
             table+='<tr> <th scope="row"><i style="font-size: 30px;" class="bi bi-plus-circle" onclick="addProduct()"></i></th> <td></td> <td></td> <td></td> </tr>';
             document.getElementById("tablebody").innerHTML=table;
@@ -320,7 +320,7 @@ function addNewProductRequest(json){
                                                                 '<th><input id="name'+data.products[i].id+'" name="name'+data.products[i].id+'" type="text" value="'+data.products[i].name+'"></th>'+
                                                                 '<th><input id="price'+data.products[i].id+'" name="price'+data.products[i].id+'" type="number" value="'+data.products[i].price+'"></th>'+
                                                                 '<th><input id="quan'+data.products[i].id+'" name="quan'+data.products[i].id+'" type="number" value="1"></th>'+
-                                                                '<th><i style="cursor:pointer" onclick="deleteProduct('+data.products[i].id+')" class="bi bi-trash3-fill text-danger">DELETE</i></th></tr>';
+                                                                '<th><button onclick="deleteProduct('+data.products[i].id+')" class="btn text-danger align-text-top">DELETE</button></th></tr>';
             }
             table+='<tr> <th scope="row"><i style="font-size: 30px;" class="bi bi-plus-circle" onclick="addProduct()"></i></th> <td></td> <td></td> <td></td> </tr>';
             document.getElementById("tablebody").innerHTML=table;
@@ -375,7 +375,7 @@ function deleteProductRequest(id){
                                                                 '<th><input id="name'+data.products[i].id+'" name="name'+data.products[i].id+'" type="text" value="'+data.products[i].name+'"></th>'+
                                                                 '<th><input id="price'+data.products[i].id+'" name="price'+data.products[i].id+'" type="number" value="'+data.products[i].price+'"></th>'+
                                                                 '<th><input id="quan'+data.products[i].id+'" name="quan'+data.products[i].id+'" type="number" value="1"></th>'+
-                                                                '<th><i style="cursor:pointer" onclick="deleteProduct('+data.products[i].id+')" class="bi bi-trash3-fill text-danger">DELETE</i></th></tr>';
+                                                                '<th><button onclick="deleteProduct('+data.products[i].id+')" class="btn text-danger align-text-top">DELETE</button></th></tr>';
             }
             table+='<tr> <th scope="row"><i style="font-size: 30px;" class="bi bi-plus-circle" onclick="addProduct()"></i></th> <td></td> <td></td> <td></td> </tr>';
             document.getElementById("tablebody").innerHTML=table;
