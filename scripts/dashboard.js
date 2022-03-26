@@ -1,8 +1,8 @@
 var selectedUser1;
 var newUserMenuList=[];
 var password;
-
-
+var menuAccessList;
+var menuOriginalAccessList;
 
 $(document).ready(function(){
     if(localStorage.getItem("raceuser")!==null && localStorage.getItem("raceuser")!==undefined){
@@ -19,8 +19,6 @@ $(document).ready(function(){
 
    var menuList = JSON.parse(localStorage.getItem("menuList"));
     var raceuserinfo = JSON.parse(localStorage.getItem("raceuserinfo"));
-    document.getElementById("manageuserbody").innerHTML += '<tr><td class="text-white">Total</td><td class="text-white"><b>'+raceuserinfo.length+'</b></td></tr>';
-    document.getElementById("manageuserbody").innerHTML += '<tr><td class="text-white"><button class="btn bg-secondary text-light" onclick="viewUsersTable()">View All</button></td></tr>';
     var tempdata;
     for (var i = 0; i < raceuserinfo.length; i++) {
         if (raceuserinfo[i].username === localStorage.getItem("raceuser")) {
@@ -37,54 +35,30 @@ $(document).ready(function(){
         document.getElementById("menudiv").innerHTML += '<li class="nav-item"> <a class="nav-link  text-light" href="' + homeurl + menu[i].pageLink + '">' + menu[i].pageName + '</a></li>';
     }
     document.getElementById("menudiv").innerHTML +='<li class="nav-item active"><div class="nav-link  text-light" style="cursor: pointer;" onclick="doLogout()">Logout</div></li>';
+    console.log(JSON.stringify(raceuserinfo));
+
+    document.getElementById("userlist").innerHTML='';
+
+    for(var i=0;i<raceuserinfo.length;i++){
+        document.getElementById("userlist").innerHTML+='<tr onclick="editUserPanel('+i+')"><td><div class="d-flex py-1 align-items-center"><span class="avatar me-2" style="background-image: url(/images/10.jpg)"></span><div class="flex-fill"><div class="font-weight-medium">'+raceuserinfo[i].username+'</div><div class="text-muted"><a href="#" class="text-reset">'+raceuserinfo[i].email+'</a></div></div></div></td>'+
+                                                    '<td class="text-muted" >ADMIN</td>'+
+                                                    '</tr>';
+    }
+   
 });
 
 
-
-function viewUsersTable(){
+function editUserPanel(index){
     var raceuserinfo = JSON.parse(localStorage.getItem("raceuserinfo"));
-
-    bootbox.dialog({
-        title: "Select User",
-        message: $('#manageuser-template').html(),
-        buttons: {
-            danger: {
-                label: "Cancel",
-                className: "btn btn-white text-dark"
-            },
-            success: {
-                label: "Select",
-                className: "btn btn-success text-white",
-                callback: function () {
-
-                    if($("#selectusernamebody").val() === ''){
-                        return false;
-                    }
-
-                    var selectedUser = raceuserinfo[$("#selectusernamebody").val()];
-                    manageSelectedUser(selectedUser);
-                }
-            }
-        }
-    });
-
-    $('#selectusernamebody').empty().append('<option selected value="" hidden>List</option>');
-    for(var i=0;i<raceuserinfo.length;i++){
-        var active ='';
-        var role=raceuserinfo[i].role;
-        if(raceuserinfo[i].isActive){
-            active='Active';
-        }else{
-            active='Disabled';
-        }
-        $("#selectusernamebody").append($("<option />").val(i).text(role+' '+raceuserinfo[i].username+' ('+active+')'));
-    }
+    manageSelectedUser(raceuserinfo[index]);
 }
-
 
 
 function manageSelectedUser(selectedUser){
     selectedUser1 = selectedUser;
+    menuAccessList = selectedUser1.accessList;
+    menuOriginalAccessList= selectedUser1.accessList;
+
     var menuList = JSON.parse(localStorage.getItem("menuList"));
 
     bootbox.dialog({
@@ -93,7 +67,11 @@ function manageSelectedUser(selectedUser){
         buttons: {
             danger: {
                 label: "Cancel",
-                className: "btn btn-white text-dark"
+                className: "btn btn-white text-dark",
+                callback: function(){
+                    newUserMenuList=menuOriginalAccessList;
+                    menuAccessList=menuOriginalAccessList;
+                }
             },
             success: {
                 label: "Edit",
@@ -101,7 +79,6 @@ function manageSelectedUser(selectedUser){
                 callback: function () {
 
                         item = {};
-                        var accessList=[];
                         item ["id"] = selectedUser.id;
                         item ["username"] = $("#tempname").val();
                         password = $("#temppass").val();
@@ -113,14 +90,7 @@ function manageSelectedUser(selectedUser){
                             item ["isActive"] = false;
                         }
                         item ["role"] = $("#temprole").val();
-                        if(newUserMenuList.length===0){
-                           // accessList = selectedUser.accessList;
-                        }else{
-                            for(var i=0;i<newUserMenuList.length;i++){
-                                accessList.push(menuList[newUserMenuList[i]]);
-                            }
-                        }
-                        item ["accessList"] = accessList;
+                        item ["accessList"] = newUserMenuList;
                         updateManageUserAjax(item);
                 }
             }
@@ -135,7 +105,7 @@ function manageSelectedUser(selectedUser){
     $("#temprole").val(""+selectedUser.role+"").change();
     
 }
-
+ 
 
 
 function editMenuBarList(){
@@ -147,72 +117,43 @@ function editMenuBarList(){
                 label: "Cancel",
                 className: "btn btn-white text-dark",
                 callback:function(){
-                    newUserMenuList=[];
-                    $("#tempaccess2 option").each(function()
-                    {
-                        newUserMenuList.push($(this).val());
-                    });
+                    newUserMenuList=menuOriginalAccessList;
+                    menuAccessList=menuOriginalAccessList;
                 }
             },
             success: {
-                label: "Set List",
-                className: "btn btn-info text-white",
+                label: "Update Menu",
+                className: "btn btn-light text-success",
                 callback: function () {
                     newUserMenuList=[];
-                    $("#tempaccess2 option").each(function()
-                    {
-                        newUserMenuList.push($(this).val());
-                    });
+                    for(var i=0;i<menuList.length;i++){
+                        if(document.getElementById('menuitem'+i).checked){
+                            newUserMenuList.push(menuList[i]);
+                        }
+                    }
+                    menuAccessList=newUserMenuList;
                 }
             }
         }
     });
 
-    $('#tempaccess').empty();
     var menuList = JSON.parse(localStorage.getItem("menuList"));
+    document.getElementById("menupick").innerHTML='';
     for(var i=0;i<menuList.length;i++){
-            $("#tempaccess").append($("<option />").val(i).text(menuList[i].pageName));
+          var checked='';
+          if(JSON.stringify(menuAccessList).includes(menuList[i].pageName)){
+            checked="checked";
+          }
+          document.getElementById("menupick").innerHTML+='<label class="form-selectgroup-item flex-fill">'+
+                                                        '<input type="checkbox" id="menuitem'+i+'" name="menuitem'+i+'"  value="'+i+'" class="form-selectgroup-input" '+checked+'>'+
+                                                        '<div class="form-selectgroup-label d-flex align-items-center p-3">'+
+                                                        '<div class="me-3"><span class="form-selectgroup-check"></span></div>'+
+                                                        '<div class="form-selectgroup-label-content d-flex align-items-center"><span class="avatar me-3" style="background-image: url(/images/favicon.ico)"></span></div>'+
+                                                        '<div><div class="font-weight-medium">'+menuList[i].pageName+'</div>'+
+                                                        '<div class="text-muted">'+menuList[i].pageLink+'</div></div>'+
+                                                        '</div></div></label>';
     }
 
-    $('#tempaccess2').empty();
-    // for(var i=0;i<menuList.length;i++){
-    //     if(selectedUser1.accessList.includes(menuList[i])){
-    //         $("#tempaccess2").append($("<option selected></option>").val(i).text(menuList[i].pageName));
-    //     }
-    // }
-    for(var i=0;i<menuList.length;i++){
-        for(var j=0;j<selectedUser1.accessList.length;j++){
-                if(menuList[i].pageName === selectedUser1.accessList[j].pageName){
-                    $("#tempaccess2").append($("<option selected></option>").val(i).text(menuList[i].pageName));
-                }
-        }
-    }
-
-    document.getElementById("labellist").innerHTML='';
-    var k=1;
-    $("#tempaccess2 option").each(function () {
-        document.getElementById("labellist").innerHTML +='<b>#'+(k++)+'. '+$(this).text()+'</b><br>';
-    });
-}
-
-
-function addToAccessList(){
-    var k=1;
-    $("#tempaccess2 option[value='"+$("#tempaccess").val()+"']").remove();
-    $("#tempaccess2").append($("<option selected></option>").val($("#tempaccess").val()).text($("#tempaccess  option:selected").text()));
-    document.getElementById("labellist").innerHTML='';
-    $("#tempaccess2 option").each(function () {
-        document.getElementById("labellist").innerHTML+='<b>#'+(k++)+'. '+$(this).text()+'</b><br>';
-    });
-}
-
-function removeFromAccessList(){
-    var k=1;
-    $("#tempaccess2 option[value='"+$("#tempaccess").val()+"']").remove();
-    document.getElementById("labellist").innerHTML='';
-    $("#tempaccess2 option").each(function () {
-        document.getElementById("labellist").innerHTML+='<b>#'+(k++)+'. '+$(this).text()+'</b><br>';
-    });
 }
 
 
