@@ -31,8 +31,12 @@ $(document).ready(function(){
     }
     var menu = tempdata.accessList;
     document.getElementById("menudiv").innerHTML = '';
+    document.getElementById("toplinks").innerHTML = '';
     for (var i = 0; i < menu.length; i++) {
-        document.getElementById("menudiv").innerHTML += '<li class="nav-item"> <a class="nav-link  text-light" href="' + homeurl + menu[i].pageLink + '">' + menu[i].pageName + '</a></li>';
+        //document.getElementById("menudiv").innerHTML += '<li class="nav-item"> <a class="nav-link  text-light" href="' + homeurl + menu[i].pageLink + '">' + menu[i].pageName + '</a></li>';
+        if(menu[i].pageName !== 'Admin Dashboard'){
+            document.getElementById("toplinks").innerHTML += '<tr><td> <a class="nav-link  text-dark" href="' + homeurl + menu[i].pageLink + '">' + menu[i].pageName + '</a></td></tr>';
+        } 
     }
     document.getElementById("menudiv").innerHTML +='<li class="nav-item active"><div class="nav-link  text-light" style="cursor: pointer;" onclick="doLogout()">Logout</div></li>';
    
