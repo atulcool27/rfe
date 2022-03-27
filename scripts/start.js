@@ -599,3 +599,18 @@ function historyInfo(index){
     
 }
 
+
+
+function makeSelection(){
+    if(document.getElementById("selectAll").checked){
+        for(var i=0;i<porformaSchema.products.length;i++){
+            var id=porformaSchema.products[i].id;
+            document.getElementById(""+id).checked=true;
+        }
+    }else{
+        for(var i=0;i<porformaSchema.products.length;i++){
+            var id=porformaSchema.products[i].id;
+            document.getElementById(""+id).checked=false;
+        }
+    }
+}
