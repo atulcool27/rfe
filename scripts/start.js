@@ -552,7 +552,7 @@ function showHistory(){
         document.getElementById("billnavtext").innerHTML='&nbsp;Close';
         $("#maindiv").hide();
         $("#historyDiv").show();
-        for(var i=0;i<porformaSchema.history.length;i++){
+        for(var i=porformaSchema.history.length-1;i>=0;i--){
             var customer = history[i].customer[0];
             document.getElementById("historyBody").innerHTML+='<tr style="cursor: pointer;" ondblclick="historyInfo('+i+')" onclick="historyInfo('+i+')"><td>'+history[i].invoiceNumber+'</td><td>'+customer.buyerName+'</td><td>'+new Date(history[i].billDate).toUTCString().substring(0,17)+'</td></tr>';
         }
