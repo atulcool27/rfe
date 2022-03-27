@@ -36,9 +36,11 @@ $(document).ready(function(){
     }
     var menu = tempdata.accessList;
     document.getElementById("menudiv").innerHTML = '';
-    for (var i = 0; i < menu.length; i++) {
-        document.getElementById("menudiv").innerHTML += '<li class="nav-item"> <a class="nav-link  text-light" href="' + homeurl + menu[i].pageLink + '">' + menu[i].pageName + '</a></li>';
-    }
+    // for (var i = 0; i < menu.length; i++) {
+    //     if(menu[i].pageName === 'Admin Dashboard'){
+    //         document.getElementById("menudiv").innerHTML += '<li class="nav-item"> <a class="nav-link  text-light" href="' + homeurl + menu[i].pageLink + '">' + 'Dashboard' + '</a></li>';
+    //     }
+    // }
     document.getElementById("menudiv").innerHTML +='<li class="nav-item active"><div class="nav-link  text-light" style="cursor: pointer;" onclick="doLogout()">Logout</div></li>';
 });
 
