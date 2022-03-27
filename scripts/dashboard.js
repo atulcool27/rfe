@@ -130,6 +130,9 @@ function editMenuBarList(){
                 callback: function () {
                     newUserMenuList=[];
                     for(var i=0;i<menuList.length;i++){
+                        if(menuList[i].pageName === 'Admin Dashboard'){
+                            continue;
+                        }
                         if(document.getElementById('menuitem'+i).checked){
                             newUserMenuList.push(menuList[i]);
                         }
@@ -146,6 +149,9 @@ function editMenuBarList(){
           var checked='';
           if(JSON.stringify(menuAccessList).includes(menuList[i].pageName)){
             checked="checked";
+          }
+          if(menuList[i].pageName === 'Admin Dashboard'){
+              continue;
           }
           document.getElementById("menupick").innerHTML+='<label class="form-selectgroup-item flex-fill">'+
                                                         '<input type="checkbox" id="menuitem'+i+'" name="menuitem'+i+'"  value="'+i+'" class="form-selectgroup-input" '+checked+'>'+
@@ -185,11 +191,12 @@ function updateManageUserAjax(item){
             }
 
             var menu = tempdata.accessList;
-            document.getElementById("menudiv").innerHTML = '';
+            document.getElementById("toplinks").innerHTML = '';
             for (var i = 0; i < menu.length; i++) {
-                document.getElementById("menudiv").innerHTML += '<li class="nav-item"> <a class="nav-link  text-light" href="' + homeurl + menu[i].pageLink + '">' + menu[i].pageName + '</a></li>';
+                if(menu[i].pageName !== 'Admin Dashboard'){
+                    document.getElementById("toplinks").innerHTML += '<tr><td> <a class="nav-link  text-dark" href="' + homeurl + menu[i].pageLink + '">' + menu[i].pageName + '</a></td></tr>';
+                } 
             }
-            document.getElementById("menudiv").innerHTML +='<li class="nav-item active"><div class="nav-link  text-light" style="cursor: pointer;" onclick="doLogout()">Logout</div></li>';
 
             },
         error:function(e){
