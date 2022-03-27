@@ -545,20 +545,24 @@ function doLogout(){
 
 var toggle=false;
 
-function showHistory(){
+function showHistory(tabname){
     var history=porformaSchema.history;
+    $("#dbillnavtext").toggleClass('active');
+    $("#billnavtext").toggleClass('active');
+    $("#dbillnavtext").toggleClass('border-dark');
+    $("#billnavtext").toggleClass('border-dark');
     document.getElementById("historyBody").innerHTML="";
     if(!toggle){
-        document.getElementById("billnavtext").innerHTML='&nbsp;Close';
         $("#maindiv").hide();
         $("#historyDiv").show();
-        for(var i=porformaSchema.history.length-1;i>=0;i--){
+        var count=0;
+        for(var i=porformaSchema.history.length-1;i>=0 && count<5;i--){
+            count++;
             var customer = history[i].customer[0];
             document.getElementById("historyBody").innerHTML+='<tr style="cursor: pointer;" ondblclick="historyInfo('+i+')" onclick="historyInfo('+i+')"><td>'+history[i].invoiceNumber+'</td><td>'+customer.buyerName+'</td><td>'+new Date(history[i].billDate).toUTCString().substring(0,17)+'</td></tr>';
         }
         toggle=true;
     }else{
-        document.getElementById("billnavtext").innerHTML='&nbsp;Click to Check Bill History';
         $("#maindiv").show();
         $("#historyDiv").hide();
         toggle=false;
@@ -616,3 +620,18 @@ function makeSelection(){
         }
     }
 }
+
+
+$("#showCountSelect").change(function(){
+    var showCount = $("#showCountSelect").val();
+
+    var history=porformaSchema.history;
+    document.getElementById("historyBody").innerHTML="";
+        var count=0;
+        for(var i=porformaSchema.history.length-1;i>=0 && count<showCount;i--){
+            count++;
+            var customer = history[i].customer[0];
+            document.getElementById("historyBody").innerHTML+='<tr style="cursor: pointer;" ondblclick="historyInfo('+i+')" onclick="historyInfo('+i+')"><td>'+history[i].invoiceNumber+'</td><td>'+customer.buyerName+'</td><td>'+new Date(history[i].billDate).toUTCString().substring(0,17)+'</td></tr>';
+        }
+
+});
