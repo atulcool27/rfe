@@ -1,257 +1,227 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="styles/bootstrap.min.css" >
-    <link rel="stylesheet" href="styles/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link href="/styles/tabler.min.css" rel="stylesheet"/>
-    <script src="scripts/jquery-3.2.1.min.js"></script>
-    <script src="scripts/popper.min.js" > </script>
-    <script src="scripts/bootstrap.min.js"></script> 
-    <script src="scripts/bootbox.js" ></script>
-    <script src="scripts/config.js"></script>
-    <link rel="stylesheet" href="styles/loading.css">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Porforma Invoice</title>
-    <link rel="shortcut icon" type="image/jpg" href="/images/favicon.ico"/>
-  </head>
-  <body>
+  <link rel="stylesheet" href="styles/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link href="/styles/tabler.min.css" rel="stylesheet" />
+  <script src="scripts/jquery-3.2.1.min.js"></script>
+  <script src="scripts/popper.min.js"> </script>
+  <script src="scripts/bootstrap.min.js"></script>
+  <script src="scripts/bootbox.js"></script>
+  <script src="scripts/config.js"></script>
+  <link rel="stylesheet" href="styles/loading.css">
+  <title>Porforma Invoice</title>
+  <link rel="shortcut icon" type="image/jpg" href="/images/favicon.ico" />
+</head>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-info mb-20">
-      <a class="navbar-brand  text-light" href="#" id="welcometext" name="welcometext"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav"  id="menudiv" name="menudiv">
-              <li class="nav-item active">
-                <div class="nav-link  text-light" style="cursor: pointer;" onclick="doLogout()">Logout</div>
-              </li>
-        </ul>
-      </div>
-    </nav>
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-20  justify-content-center">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <div class="nav-link  border-dark text-dark font-weight-bold" id="dbillnavtext" name="dbillnavtext" ><i class="bi bi-star-half"   style="cursor: pointer;" onclick="showHistory('download')">&nbsp;Download</i></div>
-        </li>
-        <li class="nav-item">
-          <div class="nav-link  text-dark font-weight-bold"  id="billnavtext" name="billnavtext" ><i class="bi bi-star-half"  style="cursor: pointer;" onclick="showHistory('history')">&nbsp;History</i></div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-info mb-20">
+    <a class="navbar-brand  text-light" href="#" id="welcometext" name="welcometext"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav" id="menudiv" name="menudiv">
+        <li class="nav-item active">
+          <div class="nav-link  text-light" style="cursor: pointer;" onclick="doLogout()">Logout</div>
         </li>
       </ul>
-      
-    </nav>
+    </div>
+  </nav>
 
 
-      
-    <div id="historyDiv" name="historyDiv">
-      <div class="container table-responsive">
-        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
 
-          <label class="lead mt-4 mb-3">Last
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-20  justify-content-center">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <div class="nav-link  border-dark text-dark font-weight-bold" id="dbillnavtext" name="dbillnavtext"><i
+            class="bi bi-star-half" style="cursor: pointer;" onclick="showHistory('download')">&nbsp;Download</i></div>
+      </li>
+      <li class="nav-item">
+        <div class="nav-link  text-dark font-weight-bold" id="billnavtext" name="billnavtext"><i class="bi bi-star-half"
+            style="cursor: pointer;" onclick="showHistory('history')">&nbsp;History</i></div>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="progress" id="myprogress" name="myprogress">
+    <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+  </div>
+
+
+  <div id="historyDiv" name="historyDiv">
+    <div class="container table-responsive">
+      <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+
+        <label class="lead mt-4 mb-3">Last
           <select id="showCountSelect" name="showCountSelect">
             <option selected value="5">5</option>
-            <option  value="10">10</option>
-            <option  value="15">15</option>
-            <option  value="20">20</option>
-            <option  value="999">All</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="999">All</option>
           </select>
-           Bills</label>
+          Bills</label>
 
-          <table class="table table-hover table-bordered">
+        <table class="table table-hover table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#Invoice</th>
+              <th scope="col">Customer Name</th>
+              <th>Bill Date</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody" name="historyBody">
+
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <div id="maindiv" name="maindiv">
+
+    <div class="container lead">
+      <div class="row mb-3 mt-3">
+        <div class="col-4">
+          <a href="/admin/dashboard.html"> <i class="bi bi-arrow-90deg-left" style="font-size: 20px;"></i>&nbsp; Go
+            Back</a>
+        </div>
+
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-20  justify-content-center">
+          <ul class="nav nav-tabs">
+            <li class="nav-item" onclick="goToStep(1)" style="cursor: pointer">
+              <div class="nav-link  border-dark text-dark font-weight-bold" id="step1sign" name="step1sign"><i class="bi bi-circle-fill" style="font-size: 20px;"></i></div>
+            </li>
+            <li class="nav-item" onclick="goToStep(2)"  style="cursor: pointer">
+              <div class="nav-link  text-dark font-weight-bold"  id="step2sign" name="step2sign"><i class="bi bi-circle" style="font-size: 20px;"></i></div>
+            </li>
+            <li class="nav-item" onclick="goToStep(3)"  style="cursor: pointer">
+              <div class="nav-link  text-dark font-weight-bold"  id="step3sign" name="step3sign"><i class="bi bi-circle" style="font-size: 20px;"></i></div>
+            </li>
+          </ul>
+        </nav>
+
+      </div>
+      <div class="row jumbotron" id="step1" name="step1">
+        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6">
+          <div id="billtypeform" name="billtypeform">
+            <form>
+              <div class="form-group">
+                <label for="billtype">Select Bill Type</label>
+                <select class="form-control" id="billtype" name="billtype">
+                  <option selected value="">Select Bill Type</option>
+                  <option value="up">UP State Bill</option>
+                  <option value="nonup">Other State Bill</option>
+                </select>
+              </div>
+            </form>
+            <div id="billtypelbl" name="billtypelbl"></div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6">
+          <div id="customertypeform" name="customertypeform">
+            <form>
+              <div class="form-group">
+                <label for="billtype">Select Customer</label>
+                <select class="form-control" id="customertype" name="customertype">
+                  <option selected value="">Select Customer and Address</option>
+                </select>
+              </div>
+            </form>
+
+            <div class="row">
+              <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6">
+                <button class="btn btn-success" id="customertypeaddbtn" name="customertypeaddbtn"
+                  onclick="addNewCustomer()"><i class="bi bi-person-plus-fill"> ADD</i></button>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6">
+                <button class="btn btn-warning mt-1" id="customertypeeditbtn" name="customertypeeditbtn"
+                  onclick="editCustomer()"><i class="bi bi-person-lines-fill"> EDIT</i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--End of Col-->
+      </div>
+    </div>
+
+
+    <hr>
+
+    <div class="container" id="maindiv2" name="maindiv2">
+      <div class="row table-responsive">
+        <div class="col-md-12 col-lg-12 col-xs-6 col-sm-6">
+          <table class="table">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">#Invoice</th>
-                <th scope="col">Customer Name</th>
-                <th >Bill Date</th>
+                <th scope="col"><input type="checkbox" id="selectAll" name="selectAll" onclick="makeSelection()" /></th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th></th>
               </tr>
             </thead>
-            <tbody id="historyBody" name="historyBody">
-              
-              
+            <tbody id="tablebody" name="tablebody">
+
+
             </tbody>
           </table>
-
         </div>
       </div>
+      <!--End of row-->
     </div>
 
 
-
-
-
-
-
-
-
-    <div id="maindiv" name="maindiv">
-
-        <div class="container lead">
-          <div class="row mb-3 mt-3">
-            <div class="col-4">
-              <a href="/admin/dashboard.html"> <i class="bi bi-arrow-90deg-left" style="font-size: 20px;"></i>&nbsp; Go Back</a>
-            </div>
-           
+    <nav class="navbar justify-content-center"  id="step3" name="sep3">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <div class="nav-link"><button class="btn btn-primary text-light" onclick="downloadPorforma()">Download</button></div>
+        </li>
+        <li class="nav-item">
+          <div class="nav-link">
+            <button class="btn btn-success text-light" onclick="downloadPorforma(1)">Email</button>
           </div>
-          <div class="row jumbotron">
-            <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6">
-              <div  id="billtypeform" name="billtypeform">
-                  <form>
-                      <div class="form-group">
-                      <label for="billtype">Select Bill Type</label>
-                      <select class="form-control" id="billtype" name="billtype">
-                          <option selected value="">Select Bill Type</option>
-                          <option value="up">UP State Bill</option>
-                          <option value="nonup">Other State Bill</option>
-                      </select>
-                      </div>
-                  </form>
-                  <div id="billtypelbl" name="billtypelbl"></div>
-              </div>
-            </div>
-            
-              <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6">
-                <div id="customertypeform" name="customertypeform">
-                    <form >
-                      <div class="form-group">
-                        <label for="billtype">Select Customer</label>
-                        <select class="form-control" id="customertype" name="customertype">
-                          <option selected value="">Select Customer and Address</option>
-                        </select>
-                      </div>
-                    </form>
+        </li>
+      </ul>
+    </nav>
 
-                    <div class="row">
-                      <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6">
-                          <button class="btn btn-success" id="customertypeaddbtn" name="customertypeaddbtn" onclick="addNewCustomer()"><i  class="bi bi-person-plus-fill"> ADD</i></button>
-                      </div>
-                      <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6">
-                        <button class="btn btn-warning mt-1"  id="customertypeeditbtn" name="customertypeeditbtn" onclick="editCustomer()"><i  class="bi bi-person-lines-fill"> EDIT</i></button>
-                      </div>
-                    </div>
-                </div>
-              </div><!--End of Col-->
-            </div>
-          </div>
-        
-
-        <hr>
-
-        <div class="container" id="maindiv2" name="maindiv2">
-          <div class="row table-responsive">
-            <div class="col-md-12 col-lg-12 col-xs-6 col-sm-6">
-              <table class="table">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col"><input type="checkbox" id="selectAll" name="selectAll" onclick="makeSelection()" /></th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th ></th>
-                  </tr>
-                </thead>
-                <tbody id="tablebody" name="tablebody">
-                  
-                  
-                </tbody>
-              </table>
-            </div>
-          </div><!--End of row-->
-
-          <button class="btn btn-primary text-light mt-5 mb-5" onclick="downloadPorforma()">Download</button>
-        </div>
-
-
-        <div class="container mb-5">
-          
-        </div>
-
-
-        
-
-      
-
-    </div>
-
-
-    
+  </div>
 
 
 
-    
-    <div id="loading" name="loading">
-
-      <div class="container lead">
-            <div class="row jumbotron">
-                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6">
-                  
-                </div>
-                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6">
-                  <div class="css-dom"></div>
-                </div><!--End of Col-->
-              </div><!--- End of Row-->
-      </div>
-      <hr>
-      <div class="container">
-        <div class="row table-responsive">
-          <div class="col-md-12 col-lg-12 col-xs-6 col-sm-6">
-            
-            <div class="main-item" >
-              <div class="static-background">
-                <div class="background-masker btn-divide-left"></div>
-              </div>
-              
-              <div class="animated-background">
-                <div class="background-masker btn-divide-left"></div>
-              </div>
-              
-              <!-- <div class="shared-dom">
-                <div class="sub-rect pure-background"></div>
-                <div class="sub-rect pure-background"></div>
-                <div class="sub-rect pure-background"></div>
-                <div class="sub-rect pure-background"></div>
-                <div class="sub-rect pure-background"></div>
-                <div class="sub-rect pure-background"></div>
-                <div class="sub-rect pure-background"></div>
-                <div class="sub-rect pure-background"></div>
-              </div> -->
-            </div>
-            
-
-          </div>
-        </div><!--End of Table row-->
-      </div>
-
-
-      <div class="container mb-5">
-        
-      </div>
-
-      <hr>
-
-    </div>
 
 
 
-    
 
-   
-    
-
-
-    
+  
 
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="scripts/start.js"></script>
-    <script type="text/template" id="invoice-template">
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="scripts/start.js"></script>
+  <script type="text/template" id="invoice-template">
       <form>
           <div class="form-group">
             <input type="number" class="form-control" id="invoicenumber" name="invoicenumber" placeholder="Invoice Number">
@@ -261,17 +231,30 @@
           </div>
         </form>
 </script>
-    <script type="text/template" id="prod-template">
-      <form>
-          <div class="form-group">
-            <input type="text" class="form-control" id="prodname" name="prodname" placeholder="Product Name">
-          </div>
-          <div class="form-group">
-            <input type="number" class="form-control" id="prodprice" name="prodprice" placeholder="Product Price">
-          </div>
-        </form>
+  <script type="text/template" id="prod-template">
+        <form>
+            <div class="form-group">
+              <input type="text" class="form-control" id="prodname" name="prodname" placeholder="Product Name">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" id="prodprice" name="prodprice" placeholder="Product Price">
+            </div>
+          </form>
+  </script>
+  <script type="text/template" id="sendEmail-template">
+    <form>
+        <div class="form-group">
+          <input type="text" class="form-control" id="sendTo" name="sendTo" placeholder="abc@gmail.com" Required>
+        </div>
+         <div class="form-group">
+          <input type="text" class="form-control" id="sendToSubject" name="sendToSubject" placeholder="Subject< HEADLINE >" Required>
+        </div>
+        <div class="form-group">
+          <textarea type="text" class="form-control" id="sendToMessage" name="sendToMessage" placeholder="Message" Required/>
+        </div> 
+      </form>
 </script>
-    <script type="text/template" id="add-template">
+  <script type="text/template" id="add-template">
         <form>
             <div class="form-group">
               <input type="text" class="form-control" id="customername" name="customername" placeholder="Customer Name">
@@ -303,4 +286,5 @@
   </script>
 
 </body>
+
 </html>
