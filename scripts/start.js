@@ -725,7 +725,7 @@ function getHistoryDataAjax(){
             var count = 0;
         for (var i = data.length - 1; i >= 0 && count < 5; i--) {
             count++;
-            document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item text-success" href="#" onclick="downloadHistoryItem(\''+data[i]+'\')">Download</a> <a class="dropdown-item text-primary" href="#" onclick="emailHistoryItem(\''+data[i]+'\')">Email</a> <a class="dropdown-item text-danger" href="#" onclick="deleteHistoryItem(\''+data[i]+'\')">Delete</a> </div> </div>' + '</td></tr>';
+            document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item text-dark text-light" href="#" onclick="viewHistoryItem(\'' + data[i] + '\')">View</a> <a class="dropdown-item text-success" href="#" onclick="downloadHistoryItem(\'' + data[i] + '\')">Download</a> <a class="dropdown-item text-primary" href="#" onclick="emailHistoryItem(\'' + data[i] + '\')">Email</a> <a class="dropdown-item text-danger" href="#" onclick="deleteHistoryItem(\'' + data[i] + '\')">Delete</a> </div> </div>' + '</td></tr>';
         }
            $("#myprogress").hide();
            $("#historyDiv").show(); ;
@@ -748,7 +748,7 @@ $("#showCountSelect").change(function () {
     var count = 0;
     for (var i = data.length - 1; i >= 0 && count < showCount; i--) {
         count++;
-        document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item text-success" href="#" onclick="downloadHistoryItem(\'' + data[i] + '\')">Download</a> <a class="dropdown-item text-primary" href="#" onclick="emailHistoryItem(\'' + data[i] + '\')">Email</a> <a class="dropdown-item text-danger" href="#" onclick="deleteHistoryItem(\'' + data[i] + '\')">Delete</a> </div> </div>' + '</td></tr>';
+        document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item text-dark text-light" href="#" onclick="viewHistoryItem(\'' + data[i] + '\')">View</a> <a class="dropdown-item text-success" href="#" onclick="downloadHistoryItem(\'' + data[i] + '\')">Download</a> <a class="dropdown-item text-primary" href="#" onclick="emailHistoryItem(\'' + data[i] + '\')">Email</a> <a class="dropdown-item text-danger" href="#" onclick="deleteHistoryItem(\'' + data[i] + '\')">Delete</a> </div> </div>' + '</td></tr>';
     }
 
 });
@@ -762,14 +762,28 @@ function emailHistoryItem(item){
     alert("Emailed "+item);
 }
 
-function downloadHistoryItem(item){
-    alert("Downloaded "+item);
+function viewHistoryItem(item){
+    $("#myprogress").show();
+    $.ajax({
+        url: url + '/api/xl/history/view?invoicename='+item,
+        type: 'GET',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
+        },
+        success: function (data) {
+            historyInfo(data);
+            $("#myprogress").hide();
+        },
+        error: function (e) {
+            $("#myprogress").hide();
+        }
+    });
 }
 
 var toggle2 = false;
 
-function historyInfo(index) {
-    var json = porformaSchema.history[index];
+function historyInfo(data) {
+    var json = data;
     if (!toggle2) {
         var customer = json.customer;
         var products = json.products;
