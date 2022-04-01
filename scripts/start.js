@@ -427,7 +427,10 @@ function downloadPorforma(emailThisPorforma) {
         count = parseInt(porformaSchema.nonupinvoiceNo) + 1;
     }
 
-
+    var lastinvno =  localStorage.getItem("lastinvno");
+    if(count === lastinvno){
+        count = lastinvno+1;
+    }
 
     var products = []
     for (var i = 0; i < porformaSchema.products.length; i++) {
@@ -498,6 +501,7 @@ function downloadPorforma(emailThisPorforma) {
                         item["upinvoiceNo"] = $('#invoicenumber', '.bootbox').val();
                         item["nonupinvoiceNo"] = $('#invoicenumber', '.bootbox').val();
                     }
+                    localStorage.setItem("lastinvno",$('#invoicenumber', '.bootbox').val());
                     porformaSchema1.push(item);
 
                     if (emailThisPorforma !== undefined) {
@@ -690,6 +694,7 @@ function showHistory(tabname) {
     $("#billnavtext").toggleClass('active');
     $("#dbillnavtext").toggleClass('border-dark');
     $("#billnavtext").toggleClass('border-dark');
+    document.getElementById("historyCountLabel").innerHTML='&nbsp;of '+history.length+' records';
     document.getElementById("historyBody").innerHTML = "";
     if (!toggle) {
         $("#maindiv").hide();
@@ -777,54 +782,50 @@ $("#showCountSelect").change(function () {
 });
 
 
+// function clearHistory(){
+//     bootbox.dialog({
+//         title: "Delete " + JSON.stringify(porformaSchema.history.length)+" History Items",
+//         message: 'These items can not be recovered after deleting.',
+//         buttons: {
+//             danger: {
+//                 label: "Cancel",
+//                 className: "btn btn-white text-dark"
+//             },
+//             success: {
+//                 label: "Yes! Clear.",
+//                 className: "btn btn-danger text-white",
+//                 callback: function () {
+//                     $("#maindiv").hide();
+//                     $("#myprogress").show();
+//                     clearHistoryAjax();
+//                 }
+//             }
+//         }
+//     });
+// }
 
 
-function sendAsEmail(index) {
-    var json = porformaSchema.history[index];
-
-    bootbox.dialog({
-        title: "Email",
-        message: $('#sendEmail-template').html(),
-        buttons: {
-            danger: {
-                label: "Cancel",
-                className: "btn btn-white text-dark"
-            },
-            success: {
-                label: "Confirm",
-                className: "btn btn-success text-white",
-                callback: function () {
-                    json["sendTo"] = $("#sendTo").val();
-                    json["sendToSubject"] = $("#sendToSubject").val();
-                    json["sendToMessage"] = $("#sendToMessage").val();
-                    //sendAsEmailAjax(json);
-                }
-            }
-        }
-    });
-
-    // $("#sendTo").multiple_emails();
-    $("#sendToSubject").val("Invoice " + json.invoiceNumber + " from Racekon");
-    $("#sendToMessage").val("Please find attached.");
-
-}
+// function clearHistoryAjax(){
+//     $.ajax({
+//         url: url + '/api/xl/customer/delete?id=' + id,
+//         type: 'DELETE',
+//         beforeSend: function (xhr) {
+//             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
+//         },
+//         success: function (data) {
+//             porformaSchema = data;
+//             $('#customertype').empty().append('<option selected value="">Select Customer and Address</option>')
+//             for (var i = 0; i < data.customer.length; i++) {
+//                 $("#customertype").append($("<option />").val(data.customer[i].id).text(data.customer[i].buyerName + "\t" + data.customer[i].addressLine1));
+//             }
+//             $("#myprogress").hide();
+//             $("#maindiv").show(); ;
+//         },
+//         error: function (e) {
+//             $("#myprogress").hide();
+//             $("#maindiv").show(); ;
+//         }
+//     });
+// }
 
 
-function sendAsEmailAjax(json) {
-    $.ajax({
-        url: url + '/api/mail/bill',
-        type: 'POST',
-        dataType: 'json',
-        contentType: "application/json",
-        data: JSON.stringify(json),
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
-        },
-        success: function (data) {
-
-        },
-        error: function (e) {
-
-        }
-    });
-}
