@@ -2,6 +2,7 @@
 var porformaSchema;
 var billtype = '';
 var userData;
+var historyData;
 
 $(document).ready(function () {
     $("#maindiv").hide();
@@ -694,17 +695,12 @@ function showHistory(tabname) {
     $("#billnavtext").toggleClass('active');
     $("#dbillnavtext").toggleClass('border-dark');
     $("#billnavtext").toggleClass('border-dark');
-    document.getElementById("historyCountLabel").innerHTML='&nbsp;of '+history.length+' records';
     document.getElementById("historyBody").innerHTML = "";
     if (!toggle) {
         $("#maindiv").hide();
-        $("#historyDiv").show();
-        var count = 0;
-        for (var i = porformaSchema.history.length - 1; i >= 0 && count < 5; i--) {
-            count++;
-            var customer = history[i].customer[0];
-            document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ondblclick="historyInfo(' + i + ')" onclick="historyInfo(' + i + ')"><td>' + history[i].invoiceNumber + '</td><td>' + customer.buyerName + '</td><td>' + new Date(history[i].billDate).toUTCString().substring(0, 17) + '</td></tr>';
-        }
+        $("#historyDiv").hide();
+        $("#myprogress").show();
+        getHistoryDataAjax();
         toggle = true;
     } else {
         $("#maindiv").show();
@@ -714,6 +710,61 @@ function showHistory(tabname) {
 
 }
 
+
+function getHistoryDataAjax(){
+
+    $.ajax({
+        url: url + '/api/xl/history',
+        type: 'GET',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
+        },
+        success: function (data) {
+            historyData = data;
+    document.getElementById("historyCountLabel").innerHTML='&nbsp;of '+data.length+' records';
+            var count = 0;
+        for (var i = data.length - 1; i >= 0 && count < 5; i--) {
+            count++;
+            document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item text-success" href="#" onclick="downloadHistoryItem(\''+data[i]+'\')">Download</a> <a class="dropdown-item text-primary" href="#" onclick="emailHistoryItem(\''+data[i]+'\')">Email</a> <a class="dropdown-item text-danger" href="#" onclick="deleteHistoryItem(\''+data[i]+'\')">Delete</a> </div> </div>' + '</td></tr>';
+        }
+           $("#myprogress").hide();
+           $("#historyDiv").show(); ;
+        },
+        error: function (e) {
+            $("#myprogress").hide();
+            $("#historyDiv").show(); ;
+        }
+    });
+
+}
+
+
+
+$("#showCountSelect").change(function () {
+    var showCount = $("#showCountSelect").val();
+
+    document.getElementById("historyBody").innerHTML = "";
+    var data = historyData;
+    var count = 0;
+    for (var i = data.length - 1; i >= 0 && count < showCount; i--) {
+        count++;
+        document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item text-success" href="#" onclick="downloadHistoryItem(\'' + data[i] + '\')">Download</a> <a class="dropdown-item text-primary" href="#" onclick="emailHistoryItem(\'' + data[i] + '\')">Email</a> <a class="dropdown-item text-danger" href="#" onclick="deleteHistoryItem(\'' + data[i] + '\')">Delete</a> </div> </div>' + '</td></tr>';
+    }
+
+});
+
+
+function deleteHistoryItem(item){
+    alert("deleted "+item);
+}
+
+function emailHistoryItem(item){
+    alert("Emailed "+item);
+}
+
+function downloadHistoryItem(item){
+    alert("Downloaded "+item);
+}
 
 var toggle2 = false;
 
@@ -766,20 +817,6 @@ function makeSelection() {
     }
 }
 
-
-$("#showCountSelect").change(function () {
-    var showCount = $("#showCountSelect").val();
-
-    var history = porformaSchema.history;
-    document.getElementById("historyBody").innerHTML = "";
-    var count = 0;
-    for (var i = porformaSchema.history.length - 1; i >= 0 && count < showCount; i--) {
-        count++;
-        var customer = history[i].customer[0];
-        document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ondblclick="historyInfo(' + i + ')" onclick="historyInfo(' + i + ')"><td>' + history[i].invoiceNumber + '</td><td>' + customer.buyerName + '</td><td>' + new Date(history[i].billDate).toUTCString().substring(0, 17) + '</td></tr>';
-    }
-
-});
 
 
 // function clearHistory(){
