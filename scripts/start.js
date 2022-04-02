@@ -524,6 +524,7 @@ function makeSelection() {
             document.getElementById("" + id).checked = false;
         }
     }
+    document.getElementById("summary").innerHTML = summaryInfo();
 }
 
 
