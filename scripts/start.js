@@ -4,6 +4,8 @@ var billtype = '';
 var userData;
 var historyData;
 
+/*********DEFAULT MANAGEMENT ************/
+
 $(document).ready(function () {
     $("#maindiv").hide();
     $("#historyDiv").hide();
@@ -53,9 +55,9 @@ function refresh() {
         },
         success: function (data) {
             porformaSchema = data;
-            $('#customertype').empty().append('<option selected value="">Select Customer and Address</option>')
+            $('#customertype').empty().append('<option selected value="">None Selected</option>')
             for (var i = 0; i < porformaSchema.customer.length; i++) {
-                $("#customertype").append($("<option />").val(porformaSchema.customer[i].id).text(porformaSchema.customer[i].buyerName + "\t" + porformaSchema.customer[i].addressLine1));
+                $("#customertype").append($("<option />").val(porformaSchema.customer[i].id).text(porformaSchema.customer[i].buyerName));
             }
             var table = '';
             for (var i = 0; i < data.products.length; i++) {
@@ -76,6 +78,36 @@ function refresh() {
     });
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*********STEP 1 MANAGEMENT ************/
 
 
 function addNewCustomer() {
@@ -277,6 +309,36 @@ function editCustomer() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*********STEP 2 MANAGEMENT ************/
+
 function addProduct() {
     bootbox.dialog({
         title: "New Product",
@@ -393,6 +455,51 @@ function deleteProductRequest(id) {
     });
 }
 
+
+function makeSelection() {
+    if (document.getElementById("selectAll").checked) {
+        for (var i = 0; i < porformaSchema.products.length; i++) {
+            var id = porformaSchema.products[i].id;
+            document.getElementById("" + id).checked = true;
+        }
+    } else {
+        for (var i = 0; i < porformaSchema.products.length; i++) {
+            var id = porformaSchema.products[i].id;
+            document.getElementById("" + id).checked = false;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************* STEP 3 MANAGEMENT ******************/
 
 var count;
 
@@ -660,9 +767,6 @@ function goToStep(step) {
 }
 
 
-
-
-
 function doLogout() {
     localStorage.removeItem(currentTokenKey);
     localStorage.removeItem(previousTokenKey);
@@ -670,6 +774,38 @@ function doLogout() {
 }
 
 var toggle = false;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************* HISTORY MANAGEMENT ******************/
+
 
 function showHistory(tabname) {
     var history = porformaSchema.history;
@@ -789,6 +925,7 @@ function deleteHistoryItem(item) {
 
 
 function deleteHistoryItemAjax(item) {
+    $('.btn').addClass('disabled');
     $("#myprogress").show();
     $.ajax({
         url: url + '/api/xl/history/delete?invoicename=' + item,
@@ -797,6 +934,7 @@ function deleteHistoryItemAjax(item) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
+            $('.btn').removeClass('disabled');
             historyData = data;
             document.getElementById("historyCountLabel").innerHTML = '&nbsp;of ' + data.length + ' records';
             var count = 0;
@@ -808,6 +946,7 @@ function deleteHistoryItemAjax(item) {
             $("#myprogress").hide();
         },
         error: function (e) {
+            $('.btn').removeClass('disabled');
             $("#myprogress").hide();
         }
     });
@@ -836,8 +975,9 @@ function emailHistoryItem(item) {
                         });
                         return false;
                     } else {
-                        emailHistoryAjax(item, $("#sendTo").val(), $("#sendToSubject").val(), $("#sendToMessage").val());
                         $("#myprogress").show();
+                        emailHistoryAjax(item, $("#sendTo").val(), $("#sendToSubject").val(), $("#sendToMessage").val());
+                       
                     }
 
                 }
@@ -857,6 +997,7 @@ function emailHistoryItem(item) {
 }
 
 function viewHistoryItem(item) {
+    $(".btn").prop("disabled",true);
     $("#myprogress").show();
     $.ajax({
         url: url + '/api/xl/history/view?invoicename=' + item,
@@ -867,9 +1008,11 @@ function viewHistoryItem(item) {
         success: function (data) {
             historyInfo(data, item);
             $("#myprogress").hide();
+            $(".btn").prop("disabled",false);
         },
         error: function (e) {
             $("#myprogress").hide();
+            $(".btn").prop("disabled",false);
         }
     });
 }
@@ -880,7 +1023,7 @@ function emailHistoryAjax(item, sendTo, sendToSubject, sendToMessage) {
     myschema["sendTo"] = sendTo;
     myschema["sendToSubject"] = sendToSubject;
     myschema["sendToMessage"] = sendToMessage;
-
+    $('.btn').addClass('disabled');
     $.ajax({
         url: url + '/api/xl/history/email?invoicename=' + item,
         type: 'POST',
@@ -891,9 +1034,11 @@ function emailHistoryAjax(item, sendTo, sendToSubject, sendToMessage) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
+            $('.btn').removeClass('disabled');
             $("#myprogress").hide();
         },
         error: function (e) {
+            $('.btn').removeClass('disabled');
             bootbox.dialog({
                 message: "Failed to send Email.",
                 closeButton: false,
@@ -906,6 +1051,7 @@ function emailHistoryAjax(item, sendTo, sendToSubject, sendToMessage) {
 
 
 function downloadHistoryItem(item) {
+    $('.btn').addClass('disabled');
     $("#myprogress").show();
     $.ajax({
         url: url + '/api/xl/history/download?invoicename=' + item,
@@ -914,6 +1060,7 @@ function downloadHistoryItem(item) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
+            $('.btn').removeClass('disabled');
             var arrrayBuffer = base64ToArrayBuffer(data);
 
             var blob = new Blob([arrrayBuffer], { type: "application/pdf" });
@@ -923,6 +1070,7 @@ function downloadHistoryItem(item) {
             $("#myprogress").hide();
         },
         error: function (e) {
+            $('.btn').removeClass('disabled');
             bootbox.dialog({
                 message: "<b>ERROR</b><br>" + JSON.stringify(e),
                 //'<button class="btn bg-info text-light" onclick="sendAsEmail(' + index + ')">Send As Email</button>',
@@ -994,18 +1142,5 @@ function historyInfo(data, item) {
 
 
 
-function makeSelection() {
-    if (document.getElementById("selectAll").checked) {
-        for (var i = 0; i < porformaSchema.products.length; i++) {
-            var id = porformaSchema.products[i].id;
-            document.getElementById("" + id).checked = true;
-        }
-    } else {
-        for (var i = 0; i < porformaSchema.products.length; i++) {
-            var id = porformaSchema.products[i].id;
-            document.getElementById("" + id).checked = false;
-        }
-    }
-}
 
 
