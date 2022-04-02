@@ -40,12 +40,8 @@ $(document).ready(function () {
     }
     var menu = tempdata.accessList;
     document.getElementById("menudiv").innerHTML = '';
-    // for (var i = 0; i < menu.length; i++) {
-    //     if(menu[i].pageName === 'Admin Dashboard'){
-    //         document.getElementById("menudiv").innerHTML += '<li class="nav-item"> <a class="nav-link  text-light" href="' + homeurl + menu[i].pageLink + '">' + 'Dashboard' + '</a></li>';
-    //     }
-    // }
     document.getElementById("menudiv").innerHTML += '<li class="nav-item active"><div class="nav-link  text-light" style="cursor: pointer;" onclick="doLogout()">Logout</div></li>';
+    getHistoryDataAjax2();
 });
 
 function refresh() {
@@ -72,7 +68,7 @@ function refresh() {
             table += '<tr> <th scope="row"><i style="font-size: 30px;" class="bi bi-plus-circle" onclick="addProduct()"></i></th> <td></td> <td></td> <td></td> </tr>';
             document.getElementById("tablebody").innerHTML = table;
             $("#myprogress").hide();
-            $("#maindiv").show(); ;
+            $("#maindiv").show();;
         },
         error: function (e) {
 
@@ -107,7 +103,7 @@ function addNewCustomer() {
                     jsonObj.push(item);
                     addNewCustomerRequest(item);
 
-                    $("#maindiv").hide(); ;
+                    $("#maindiv").hide();;
                     $("#myprogress").show();
                 }
             }
@@ -134,11 +130,11 @@ function addNewCustomerRequest(customerjson) {
                 $("#customertype").append($("<option />").val(data.customer[i].id).text(data.customer[i].buyerName + "\t" + data.customer[i].addressLine1));
             }
             $("#myprogress").hide();
-            $("#maindiv").show(); ;
+            $("#maindiv").show();;
         },
         error: function (e) {
             $("#myprogress").hide();
-            $("#maindiv").show(); ;
+            $("#maindiv").show();;
         }
     });
 }
@@ -160,11 +156,11 @@ function editCustomerRequest(customerjson) {
                 $("#customertype").append($("<option />").val(data.customer[i].id).text(data.customer[i].buyerName + "\t" + data.customer[i].addressLine1));
             }
             $("#myprogress").hide();
-            $("#maindiv").show(); ;
+            $("#maindiv").show();;
         },
         error: function (e) {
             $("#myprogress").hide();
-            $("#maindiv").show(); ;
+            $("#maindiv").show();;
         }
     });
 }
@@ -183,11 +179,11 @@ function deleteCustomerRequest(id) {
                 $("#customertype").append($("<option />").val(data.customer[i].id).text(data.customer[i].buyerName + "\t" + data.customer[i].addressLine1));
             }
             $("#myprogress").hide();
-            $("#maindiv").show(); ;
+            $("#maindiv").show();;
         },
         error: function (e) {
             $("#myprogress").hide();
-            $("#maindiv").show(); ;
+            $("#maindiv").show();;
         }
     });
 }
@@ -249,7 +245,7 @@ function editCustomer() {
                         editCustomerRequest(item);
 
                         $("#myprogress").show();
-                        $("#maindiv").hide(); ;
+                        $("#maindiv").hide();;
                     }
                 },
                 noclose: {
@@ -258,7 +254,7 @@ function editCustomer() {
                     callback: function () {
                         deleteCustomerRequest($("#customertype").val());
                         $("#myprogress").show();
-                        $("#maindiv").hide(); ;
+                        $("#maindiv").hide();;
                     }
                 },
                 ok: {
@@ -300,7 +296,7 @@ function addProduct() {
                     addNewProductRequest(item);
 
                     $("#myprogress").show();
-                    $("#maindiv").hide(); ;
+                    $("#maindiv").hide();;
                 }
             }
         }
@@ -332,11 +328,11 @@ function addNewProductRequest(json) {
             document.getElementById("tablebody").innerHTML = table;
 
             $("#myprogress").hide();
-            $("#maindiv").show(); ;
+            $("#maindiv").show();;
         },
         error: function (e) {
             $("#myprogress").hide();
-            $("#maindiv").show(); ;
+            $("#maindiv").show();;
         }
     });
 }
@@ -428,9 +424,9 @@ function downloadPorforma(emailThisPorforma) {
         count = parseInt(porformaSchema.nonupinvoiceNo) + 1;
     }
 
-    var lastinvno =  localStorage.getItem("lastinvno");
-    if(count === lastinvno){
-        count = lastinvno+1;
+    var lastinvno = localStorage.getItem("lastinvno");
+    if (count === lastinvno) {
+        count = lastinvno + 1;
     }
 
     var products = []
@@ -502,7 +498,7 @@ function downloadPorforma(emailThisPorforma) {
                         item["upinvoiceNo"] = $('#invoicenumber', '.bootbox').val();
                         item["nonupinvoiceNo"] = $('#invoicenumber', '.bootbox').val();
                     }
-                    localStorage.setItem("lastinvno",$('#invoicenumber', '.bootbox').val());
+                    localStorage.setItem("lastinvno", $('#invoicenumber', '.bootbox').val());
                     porformaSchema1.push(item);
 
                     if (emailThisPorforma !== undefined) {
@@ -511,7 +507,7 @@ function downloadPorforma(emailThisPorforma) {
 
                         porformaInvoiceRequest(porformaSchema1, billtype);
                         $("#myprogress").show();
-                        $("#maindiv").hide(); ;
+                        $("#maindiv").hide();;
                     }
                 }
             }
@@ -541,7 +537,7 @@ function porformaInvoiceRequest(billjson, billtype) {
         },
         error: function (e) {
             $("#myprogress").hide();
-            $("#maindiv").show(); ;
+            $("#maindiv").show();;
         }
     });
 }
@@ -562,35 +558,21 @@ function emailPorforma(porformaSchema1, billtype) {
                 label: "Confirm",
                 className: "btn btn-success text-white",
                 callback: function () {
-                    // var mailinglist = [];
-                    // if (localStorage.getItem("mailinglist") !== undefined && localStorage.getItem("mailinglist") !== null && localStorage.getItem("mailinglist") !== '') {
-                    //     mailinglist = JSON.parse("["+JSON.stringify(localStorage.getItem("mailinglist"))+"]");
-                    // } 
-
-                    // if($("#sendTo").val() === null || $("#sendTo").val() === undefined){
-                    //     alert("provide an email address.");
-                    //     return false;
-                    // }
-                    // var finallist = mailinglist.concat(JSON.parse($("#sendTo").val()));
-                    // function onlyUnique(value, index, self) {
-                    //     return self.indexOf(value) === index;
-                    // }
-                    // localStorage.setItem("mailinglist", finallist.filter(onlyUnique));
                     localStorage.setItem("lastusedemail", $("#sendTo").val());
 
-                    if($("#sendTo").val() === null || $("#sendTo").val() === undefined ||  $("#sendTo").val()==="" ){
+                    if ($("#sendTo").val() === null || $("#sendTo").val() === undefined || $("#sendTo").val() === "") {
                         bootbox.dialog({
                             message: "Please provide email address.",
                             closeButton: false,
                             backdrop: true
                         });
                         return false;
-                    }else{
-                        emailPorformaAjax(porformaSchema1,billtype,$("#sendTo").val(), $("#sendToSubject").val(),$("#sendToMessage").val());
+                    } else {
+                        emailPorformaAjax(porformaSchema1, billtype, $("#sendTo").val(), $("#sendToSubject").val(), $("#sendToMessage").val());
                         $("#myprogress").show();
-                        $("#maindiv").hide(); ;
+                        $("#maindiv").hide();;
                     }
-                    
+
                 }
             }
         }
@@ -598,8 +580,8 @@ function emailPorforma(porformaSchema1, billtype) {
 
 
     var lastusedemail = localStorage.getItem("lastusedemail");
-    if(lastusedemail===null || lastusedemail===undefined){
-        lastusedemail=userData.email;
+    if (lastusedemail === null || lastusedemail === undefined) {
+        lastusedemail = userData.email;
     }
 
     $("#sendTo").val(lastusedemail);
@@ -608,13 +590,13 @@ function emailPorforma(porformaSchema1, billtype) {
 }
 
 
-function emailPorformaAjax(porformaSchema1,billtype,sendTo,sendToSubject,sendToMessage){
-    var myschema={};
+function emailPorformaAjax(porformaSchema1, billtype, sendTo, sendToSubject, sendToMessage) {
+    var myschema = {};
     myschema["sendTo"] = sendTo;
     myschema["sendToSubject"] = sendToSubject;
     myschema["sendToMessage"] = sendToMessage;
     myschema["schema"] = porformaSchema1[0];
-    
+
     $.ajax({
         url: url + '/api/mail/bill?billtype=' + billtype,
         type: 'POST',
@@ -635,44 +617,44 @@ function emailPorformaAjax(porformaSchema1,billtype,sendTo,sendToSubject,sendToM
                 backdrop: true
             });
             $("#myprogress").hide();
-            $("#maindiv").show(); ;
+            $("#maindiv").show();;
         }
     });
 }
 
 
-function goToStep(step){
-    
-    if(step === 1){
+function goToStep(step) {
+
+    if (step === 1) {
         $("#step1").show();
         $("#maindiv2").hide();
         $("#step3").hide();
-        document.getElementById("step1sign").innerHTML='<i class="bi bi-circle-fill" style="font-size: 20px;"></i>';
-        document.getElementById("step2sign").innerHTML='<i class="bi bi-circle" style="font-size: 20px;"></i>';
-        document.getElementById("step3sign").innerHTML='<i class="bi bi-circle" style="font-size: 20px;"></i>';
+        document.getElementById("step1sign").innerHTML = '<i class="bi bi-circle-fill" style="font-size: 20px;"></i>';
+        document.getElementById("step2sign").innerHTML = '<i class="bi bi-circle" style="font-size: 20px;"></i>';
+        document.getElementById("step3sign").innerHTML = '<i class="bi bi-circle" style="font-size: 20px;"></i>';
         $("#step2sign").removeClass('border-dark');
         $("#step3sign").removeClass('border-dark');
         $("#step1sign").addClass('border-dark');
-    }else if(step === 2){
+    } else if (step === 2) {
         $("#step1").hide();
         $("#maindiv2").show();
         $("#step3").hide();
-        document.getElementById("step2sign").innerHTML='<i class="bi bi-circle-fill" style="font-size: 20px;"></i>';
-        document.getElementById("step1sign").innerHTML='<i class="bi bi-circle" style="font-size: 20px;"></i>';
-        document.getElementById("step3sign").innerHTML='<i class="bi bi-circle" style="font-size: 20px;"></i>';
+        document.getElementById("step2sign").innerHTML = '<i class="bi bi-circle-fill" style="font-size: 20px;"></i>';
+        document.getElementById("step1sign").innerHTML = '<i class="bi bi-circle" style="font-size: 20px;"></i>';
+        document.getElementById("step3sign").innerHTML = '<i class="bi bi-circle" style="font-size: 20px;"></i>';
         $("#step1sign").removeClass('border-dark');
         $("#step3sign").removeClass('border-dark');
         $("#step2sign").addClass('border-dark');
-    }else if(step === 3){
+    } else if (step === 3) {
         $("#step1").hide();
         $("#maindiv2").hide();
         $("#step3").show();
         $("#step2sign").removeClass('border-dark');
         $("#step1sign").removeClass('border-dark');
         $("#step3sign").addClass('border-dark');
-        document.getElementById("step3sign").innerHTML='<i class="bi bi-circle-fill" style="font-size: 20px;"></i>';
-        document.getElementById("step2sign").innerHTML='<i class="bi bi-circle" style="font-size: 20px;"></i>';
-        document.getElementById("step1sign").innerHTML='<i class="bi bi-circle" style="font-size: 20px;"></i>';
+        document.getElementById("step3sign").innerHTML = '<i class="bi bi-circle-fill" style="font-size: 20px;"></i>';
+        document.getElementById("step2sign").innerHTML = '<i class="bi bi-circle" style="font-size: 20px;"></i>';
+        document.getElementById("step1sign").innerHTML = '<i class="bi bi-circle" style="font-size: 20px;"></i>';
     }
 
 }
@@ -698,9 +680,16 @@ function showHistory(tabname) {
     document.getElementById("historyBody").innerHTML = "";
     if (!toggle) {
         $("#maindiv").hide();
-        $("#historyDiv").hide();
-        $("#myprogress").show();
-        getHistoryDataAjax();
+        $("#historyDiv").show();
+       // $("#myprogress").show();
+        //getHistoryDataAjax();
+        var data=historyData;
+        document.getElementById("historyCountLabel").innerHTML = '&nbsp;of ' + data.length + ' records';
+            var count = 0;
+            for (var i = data.length - 1; i >= 0 && count < 5; i--) {
+                count++;
+                document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button"  onclick="viewHistoryItem(\'' + data[i] + '\')" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> View </button> </div></td></tr>';
+            }
         toggle = true;
     } else {
         $("#maindiv").show();
@@ -711,7 +700,7 @@ function showHistory(tabname) {
 }
 
 
-function getHistoryDataAjax(){
+function getHistoryDataAjax() {
 
     $.ajax({
         url: url + '/api/xl/history',
@@ -721,18 +710,42 @@ function getHistoryDataAjax(){
         },
         success: function (data) {
             historyData = data;
-    document.getElementById("historyCountLabel").innerHTML='&nbsp;of '+data.length+' records';
+            document.getElementById("historyCountLabel").innerHTML = '&nbsp;of ' + data.length + ' records';
             var count = 0;
-        for (var i = data.length - 1; i >= 0 && count < 5; i--) {
-            count++;
-            document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item text-dark text-light" href="#" onclick="viewHistoryItem(\'' + data[i] + '\')">View</a> <a class="dropdown-item text-success" href="#" onclick="downloadHistoryItem(\'' + data[i] + '\')">Download</a> <a class="dropdown-item text-primary" href="#" onclick="emailHistoryItem(\'' + data[i] + '\')">Email</a> <a class="dropdown-item text-danger" href="#" onclick="deleteHistoryItem(\'' + data[i] + '\')">Delete</a> </div> </div>' + '</td></tr>';
-        }
-           $("#myprogress").hide();
-           $("#historyDiv").show(); ;
+            for (var i = data.length - 1; i >= 0 && count < 5; i--) {
+                count++;
+                document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button"  onclick="viewHistoryItem(\'' + data[i] + '\')" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> View </button> </div></td></tr>';
+            }
+            $("#myprogress").hide();
+            $("#historyDiv").show();;
         },
         error: function (e) {
             $("#myprogress").hide();
-            $("#historyDiv").show(); ;
+            $("#historyDiv").show();;
+        }
+    });
+
+}
+
+
+function getHistoryDataAjax2() {
+
+    $.ajax({
+        url: url + '/api/xl/history',
+        type: 'GET',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
+        },
+        success: function (data) {
+            historyData = data;
+            document.getElementById("historyCountLabel").innerHTML = '&nbsp;of ' + data.length + ' records';
+            var count = 0;
+            for (var i = data.length - 1; i >= 0 && count < 5; i--) {
+                count++;
+                document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button"  onclick="viewHistoryItem(\'' + data[i] + '\')" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> View </button> </div></td></tr>';
+            }
+        },
+        error: function (e) {
         }
     });
 
@@ -748,13 +761,13 @@ $("#showCountSelect").change(function () {
     var count = 0;
     for (var i = data.length - 1; i >= 0 && count < showCount; i--) {
         count++;
-        document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item text-dark text-light" href="#" onclick="viewHistoryItem(\'' + data[i] + '\')">View</a> <a class="dropdown-item text-success" href="#" onclick="downloadHistoryItem(\'' + data[i] + '\')">Download</a> <a class="dropdown-item text-primary" href="#" onclick="emailHistoryItem(\'' + data[i] + '\')">Email</a> <a class="dropdown-item text-danger" href="#" onclick="deleteHistoryItem(\'' + data[i] + '\')">Delete</a> </div> </div>' + '</td></tr>';
+        document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button"  onclick="viewHistoryItem(\'' + data[i] + '\')" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> View </button> </div></td></tr>';
     }
 
 });
 
 
-function deleteHistoryItem(item){
+function deleteHistoryItem(item) {
     bootbox.dialog({
         title: "Delete " + item,
         message: 'Are you sure you want to delete this History Item?',
@@ -775,23 +788,23 @@ function deleteHistoryItem(item){
 }
 
 
-function deleteHistoryItemAjax(item){
+function deleteHistoryItemAjax(item) {
     $("#myprogress").show();
     $.ajax({
-        url: url + '/api/xl/history/delete?invoicename='+item,
+        url: url + '/api/xl/history/delete?invoicename=' + item,
         type: 'DELETE',
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
             historyData = data;
-            document.getElementById("historyCountLabel").innerHTML='&nbsp;of '+data.length+' records';
-                    var count = 0;
-                    document.getElementById("historyBody").innerHTML ='';
-                for (var i = data.length - 1; i >= 0 && count < 5; i--) {
-                    count++;
-                    document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item text-dark text-light" href="#" onclick="viewHistoryItem(\'' + data[i] + '\')">View</a> <a class="dropdown-item text-success" href="#" onclick="downloadHistoryItem(\'' + data[i] + '\')">Download</a> <a class="dropdown-item text-primary" href="#" onclick="emailHistoryItem(\'' + data[i] + '\')">Email</a> <a class="dropdown-item text-danger" href="#" onclick="deleteHistoryItem(\'' + data[i] + '\')">Delete</a> </div> </div>' + '</td></tr>';
-                }
+            document.getElementById("historyCountLabel").innerHTML = '&nbsp;of ' + data.length + ' records';
+            var count = 0;
+            document.getElementById("historyBody").innerHTML = '';
+            for (var i = data.length - 1; i >= 0 && count < 5; i--) {
+                count++;
+                document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button"  onclick="viewHistoryItem(\'' + data[i] + '\')" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> View </button> </div></td></tr>';
+            }
             $("#myprogress").hide();
         },
         error: function (e) {
@@ -800,7 +813,7 @@ function deleteHistoryItemAjax(item){
     });
 }
 
-function emailHistoryItem(item){
+function emailHistoryItem(item) {
     var box = bootbox.dialog({
         title: "Email",
         message: $('#sendEmail-template').html(),
@@ -815,18 +828,18 @@ function emailHistoryItem(item){
                 callback: function () {
                     localStorage.setItem("lastusedemail", $("#sendTo").val());
 
-                    if($("#sendTo").val() === null || $("#sendTo").val() === undefined ||  $("#sendTo").val()==="" ){
+                    if ($("#sendTo").val() === null || $("#sendTo").val() === undefined || $("#sendTo").val() === "") {
                         bootbox.dialog({
                             message: "Please provide email address.",
                             closeButton: false,
                             backdrop: true
                         });
                         return false;
-                    }else{
-                         emailHistoryAjax(item,$("#sendTo").val(), $("#sendToSubject").val(),$("#sendToMessage").val());
+                    } else {
+                        emailHistoryAjax(item, $("#sendTo").val(), $("#sendToSubject").val(), $("#sendToMessage").val());
                         $("#myprogress").show();
                     }
-                    
+
                 }
             }
         }
@@ -834,25 +847,25 @@ function emailHistoryItem(item){
 
 
     var lastusedemail = localStorage.getItem("lastusedemail");
-    if(lastusedemail===null || lastusedemail===undefined){
-        lastusedemail=userData.email;
+    if (lastusedemail === null || lastusedemail === undefined) {
+        lastusedemail = userData.email;
     }
 
     $("#sendTo").val(lastusedemail);
-    $("#sendToSubject").val(item+ " from Racekon");
+    $("#sendToSubject").val(item + " from Racekon");
     $("#sendToMessage").val("Please find attached.");
 }
 
-function viewHistoryItem(item){
+function viewHistoryItem(item) {
     $("#myprogress").show();
     $.ajax({
-        url: url + '/api/xl/history/view?invoicename='+item,
+        url: url + '/api/xl/history/view?invoicename=' + item,
         type: 'GET',
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
-            historyInfo(data);
+            historyInfo(data, item);
             $("#myprogress").hide();
         },
         error: function (e) {
@@ -862,12 +875,12 @@ function viewHistoryItem(item){
 }
 
 
-function emailHistoryAjax(item,sendTo,sendToSubject,sendToMessage){
-    var myschema={};
+function emailHistoryAjax(item, sendTo, sendToSubject, sendToMessage) {
+    var myschema = {};
     myschema["sendTo"] = sendTo;
     myschema["sendToSubject"] = sendToSubject;
     myschema["sendToMessage"] = sendToMessage;
-    
+
     $.ajax({
         url: url + '/api/xl/history/email?invoicename=' + item,
         type: 'POST',
@@ -892,27 +905,27 @@ function emailHistoryAjax(item,sendTo,sendToSubject,sendToMessage){
 }
 
 
-function downloadHistoryItem(item){
+function downloadHistoryItem(item) {
     $("#myprogress").show();
     $.ajax({
-        url: url + '/api/xl/history/download?invoicename='+item,
+        url: url + '/api/xl/history/download?invoicename=' + item,
         type: 'GET',
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
             var arrrayBuffer = base64ToArrayBuffer(data);
-            
-            var blob = new Blob([arrrayBuffer], {type: "application/pdf"});
+
+            var blob = new Blob([arrrayBuffer], { type: "application/pdf" });
             var link = window.URL.createObjectURL(blob);
-            window.open(link,'', 'height=650,width=840');
+            window.open(link, '', 'height=650,width=840');
 
             $("#myprogress").hide();
         },
         error: function (e) {
             bootbox.dialog({
-                message: "<b>ERROR</b><br>"+JSON.stringify(e),
-                    //'<button class="btn bg-info text-light" onclick="sendAsEmail(' + index + ')">Send As Email</button>',
+                message: "<b>ERROR</b><br>" + JSON.stringify(e),
+                //'<button class="btn bg-info text-light" onclick="sendAsEmail(' + index + ')">Send As Email</button>',
                 closeButton: false,
                 backdrop: true
             });
@@ -922,7 +935,7 @@ function downloadHistoryItem(item){
 }
 
 
- //data is the base64 encoded string
+//data is the base64 encoded string
 function base64ToArrayBuffer(base64) {
     var binaryString = window.atob(base64);
     var binaryLen = binaryString.length;
@@ -935,19 +948,19 @@ function base64ToArrayBuffer(base64) {
 }
 
 
-var toggle2 = false;
-
-function historyInfo(data) {
-    if(data===null || data === undefined || data === ""){
+function historyInfo(data, item) {
+    if (data === null || data === undefined || data === "") {
         bootbox.dialog({
-            message: "Sorry! No data to show. <br> <b>Please DOWNLOAD or EMAIL to view it.</b>",
-                //'<button class="btn bg-info text-light" onclick="sendAsEmail(' + index + ')">Send As Email</button>',
+            message: "Sorry! No data to show. <br> <b>Please DOWNLOAD or EMAIL to view it.</b>"+
+            '<div class="row" style="cursor: pointer;" ><div class="col"><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + item + '</div></div>   <div class="row">  <div class="col">' + '<a class=" bg-success text-light btn" href="#" onclick="downloadHistoryItem(\'' + item + '\')">Download</a></div> <div class="col"> <a class=" bg-primary text-light btn" href="#" onclick="emailHistoryItem(\'' + item + '\')">Email</a></div>  <div class="col"> <a class="bg-danger text-light btn" href="#" onclick="deleteHistoryItem(\'' + item + '\')">Delete</a> </div> </div>'
+            ,
+            //'<button class="btn bg-info text-light" onclick="sendAsEmail(' + index + ')">Send As Email</button>',
             closeButton: false,
             backdrop: true
         });
-    }else{
+    } else {
         var json = data;
-    if (!toggle2) {
+
         var customer = json.customer;
         var products = json.products;
         var productStr = '<table class="table table-responsive table-hover ">';
@@ -964,19 +977,18 @@ function historyInfo(data) {
                     "<b>STATE :</b> " + customer[0].state + "<br>" +
                     "<b>MOBILE : </b>" + customer[0].mobile + "<br>" +
                     "<b>GST NUMBER : </b>" + customer[0].gst + "</small><br>" +
-                    productStr,
-                    //'<button class="btn bg-info text-light" onclick="sendAsEmail(' + index + ')">Send As Email</button>',
+                    productStr+
+                    '<div class="row" style="cursor: pointer;" ><div class="col"><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + item + '</div></div>   <div class="row">  <div class="col">' + '<a class=" bg-success text-light btn" href="#" onclick="downloadHistoryItem(\'' + data[i] + '\')">Download</a></div> <div class="col"> <a class=" bg-primary text-light btn" href="#" onclick="emailHistoryItem(\'' + data[i] + '\')">Email</a></div>  <div class="col"> <a class="bg-danger text-light btn" href="#" onclick="deleteHistoryItem(\'' + data[i] + '\')">Delete</a> </div> </div>'
+                    ,
+                //'<button class="btn bg-info text-light" onclick="sendAsEmail(' + index + ')">Send As Email</button>',
                 closeButton: false,
                 backdrop: true
             });
         } else {
         }
-        toggle2 = true;
-    } else {
-        toggle2 = false;
+
     }
-    }
-    
+
 
 }
 
@@ -995,53 +1007,5 @@ function makeSelection() {
         }
     }
 }
-
-
-
-// function clearHistory(){
-//     bootbox.dialog({
-//         title: "Delete " + JSON.stringify(porformaSchema.history.length)+" History Items",
-//         message: 'These items can not be recovered after deleting.',
-//         buttons: {
-//             danger: {
-//                 label: "Cancel",
-//                 className: "btn btn-white text-dark"
-//             },
-//             success: {
-//                 label: "Yes! Clear.",
-//                 className: "btn btn-danger text-white",
-//                 callback: function () {
-//                     $("#maindiv").hide();
-//                     $("#myprogress").show();
-//                     clearHistoryAjax();
-//                 }
-//             }
-//         }
-//     });
-// }
-
-
-// function clearHistoryAjax(){
-//     $.ajax({
-//         url: url + '/api/xl/customer/delete?id=' + id,
-//         type: 'DELETE',
-//         beforeSend: function (xhr) {
-//             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
-//         },
-//         success: function (data) {
-//             porformaSchema = data;
-//             $('#customertype').empty().append('<option selected value="">Select Customer and Address</option>')
-//             for (var i = 0; i < data.customer.length; i++) {
-//                 $("#customertype").append($("<option />").val(data.customer[i].id).text(data.customer[i].buyerName + "\t" + data.customer[i].addressLine1));
-//             }
-//             $("#myprogress").hide();
-//             $("#maindiv").show(); ;
-//         },
-//         error: function (e) {
-//             $("#myprogress").hide();
-//             $("#maindiv").show(); ;
-//         }
-//     });
-// }
 
 
