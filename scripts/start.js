@@ -913,7 +913,7 @@ function doLogout() {
     window.location.href = "/login.html";
 }
 
-var toggle = false;
+
 
 
 
@@ -946,6 +946,7 @@ var toggle = false;
 
 /************* HISTORY MANAGEMENT ******************/
 
+var toggle = false;
 
 function showHistory(tabname) {
     var history = porformaSchema.history;
@@ -955,18 +956,21 @@ function showHistory(tabname) {
     $("#billnavtext").toggleClass('border-dark');
     document.getElementById("historyBody").innerHTML = "";
     if (!toggle) {
+        toggle = true;
         $("#maindiv").hide();
         $("#historyDiv").show();
        // $("#myprogress").show();
         //getHistoryDataAjax();
         var data=historyData;
+        if(historyData === null || historyData === undefined){
+            data = [];
+        }
         document.getElementById("historyCountLabel").innerHTML = '&nbsp;of ' + data.length + ' records';
             var count = 0;
             for (var i = data.length - 1; i >= 0 && count < 5; i--) {
                 count++;
                 document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button"  onclick="viewHistoryItem(\'' + data[i] + '\')" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> View </button> </div></td></tr>';
             }
-        toggle = true;
     } else {
         $("#maindiv").show();
         $("#historyDiv").hide();
