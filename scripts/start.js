@@ -54,21 +54,31 @@ function refresh() {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
+            data.products.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
+
+            data.customer.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
+
             porformaSchema = data;
             $('#customertype').empty().append('<option selected value="">None Selected</option>')
             for (var i = 0; i < porformaSchema.customer.length; i++) {
                 $("#customertype").append($("<option />").val(porformaSchema.customer[i].id).text(porformaSchema.customer[i].buyerName));
             }
             var table = '';
+           
             for (var i = 0; i < data.products.length; i++) {
-                table += '<tr><th scope="row"><input id="' + data.products[i].id + '" name="' + data.products[i].id + '" type="checkbox"></th>' +
-                    '<th><input id="name' + data.products[i].id + '" name="name' + data.products[i].id + '" type="text" value="' + data.products[i].name + '"></th>' +
-                    '<th><input id="price' + data.products[i].id + '" name="price' + data.products[i].id + '" type="number" value="' + data.products[i].price + '"></th>' +
-                    '<th><input id="quan' + data.products[i].id + '" name="quan' + data.products[i].id + '" type="number" value="1"></th>' +
+                table += '<tr><th scope="row"><input id="' + data.products[i].id + '" name="' + data.products[i].id + '" type="checkbox"  onclick="productCheckbox()"></th>' +
+                    '<th><input id="name' + data.products[i].id + '" name="name' + data.products[i].id + '" type="text" value="' + data.products[i].name + '" onchange="productCheckbox()"></th>' +
+                    '<th><input id="price' + data.products[i].id + '" name="price' + data.products[i].id + '" type="number" value="' + data.products[i].price + '"  onchange="productCheckbox()"></th>' +
+                    '<th><input id="quan' + data.products[i].id + '" name="quan' + data.products[i].id + '" type="number" value="1"  onchange="productCheckbox()"></th>' +
                     '<th><button onclick="deleteProduct(' + data.products[i].id + ')" class="btn text-danger align-text-top">DELETE</button></th></tr>';
             }
             table += '<tr> <th scope="row"><i style="font-size: 30px;" class="bi bi-plus-circle" onclick="addProduct()"></i></th> <td></td> <td></td> <td></td> </tr>';
             document.getElementById("tablebody").innerHTML = table;
+            document.getElementById("summary").innerHTML = summaryInfo();
             $("#myprogress").hide();
             $("#maindiv").show();;
         },
@@ -156,11 +166,20 @@ function addNewCustomerRequest(customerjson) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
+            data.products.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
+
+            data.customer.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
+            
             porformaSchema = data;
-            $('#customertype').empty().append('<option selected value="">Select Customer and Address</option>')
-            for (var i = 0; i < data.customer.length; i++) {
-                $("#customertype").append($("<option />").val(data.customer[i].id).text(data.customer[i].buyerName + "\t" + data.customer[i].addressLine1));
+            $('#customertype').empty().append('<option selected value="">None Selected</option>')
+            for (var i = 0; i < porformaSchema.customer.length; i++) {
+                $("#customertype").append($("<option />").val(porformaSchema.customer[i].id).text(porformaSchema.customer[i].buyerName));
             }
+            document.getElementById("summary").innerHTML = summaryInfo();
             $("#myprogress").hide();
             $("#maindiv").show();;
         },
@@ -182,11 +201,21 @@ function editCustomerRequest(customerjson) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
+            data.products.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
+
+            data.customer.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
+            
+
             porformaSchema = data;
-            $('#customertype').empty().append('<option selected value="">Select Customer and Address</option>')
-            for (var i = 0; i < data.customer.length; i++) {
-                $("#customertype").append($("<option />").val(data.customer[i].id).text(data.customer[i].buyerName + "\t" + data.customer[i].addressLine1));
+            $('#customertype').empty().append('<option selected value="">None Selected</option>')
+            for (var i = 0; i < porformaSchema.customer.length; i++) {
+                $("#customertype").append($("<option />").val(porformaSchema.customer[i].id).text(porformaSchema.customer[i].buyerName));
             }
+            document.getElementById("summary").innerHTML = summaryInfo();
             $("#myprogress").hide();
             $("#maindiv").show();;
         },
@@ -205,11 +234,20 @@ function deleteCustomerRequest(id) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
+            data.products.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
+
+            data.customer.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
+            
             porformaSchema = data;
-            $('#customertype').empty().append('<option selected value="">Select Customer and Address</option>')
-            for (var i = 0; i < data.customer.length; i++) {
-                $("#customertype").append($("<option />").val(data.customer[i].id).text(data.customer[i].buyerName + "\t" + data.customer[i].addressLine1));
+            $('#customertype').empty().append('<option selected value="">None Selected</option>')
+            for (var i = 0; i < porformaSchema.customer.length; i++) {
+                $("#customertype").append($("<option />").val(porformaSchema.customer[i].id).text(porformaSchema.customer[i].buyerName));
             }
+            document.getElementById("summary").innerHTML = summaryInfo();
             $("#myprogress").hide();
             $("#maindiv").show();;
         },
@@ -222,24 +260,26 @@ function deleteCustomerRequest(id) {
 
 
 $("#customertype").on('change', function () {
-    var customer = porformaSchema.customer;
-    var obj = customer.filter(function (n) {
-        return n.id === $("#customertype").val();
-    });
+    // var customer = porformaSchema.customer;
+    // var obj = customer.filter(function (n) {
+    //     return n.id === $("#customertype").val();
+    // });
 
-    if (obj.length > 0) {
-        bootbox.dialog({
-            message: "<small><b>Name :</b> " + obj[0].buyerName + "<br>" +
-                "<b>ADDRESS :</b> " + obj[0].addressLine1 + "<br>" +
-                "" + obj[0].addressLine2 + "<br>" +
-                "<b>STATE :</b> " + obj[0].state + "<br>" +
-                "<b>MOBILE : </b>" + obj[0].mobile + "<br>" +
-                "<b>GST NUMBER : </b>" + obj[0].gst + "</small>",
-            closeButton: false,
-            backdrop: true
-        });
-    } else {
-    }
+    // if (obj.length > 0) {
+    //     bootbox.dialog({
+    //         message: "<small><b>Name :</b> " + obj[0].buyerName + "<br>" +
+    //             "<b>ADDRESS :</b> " + obj[0].addressLine1 + "<br>" +
+    //             "" + obj[0].addressLine2 + "<br>" +
+    //             "<b>STATE :</b> " + obj[0].state + "<br>" +
+    //             "<b>MOBILE : </b>" + obj[0].mobile + "<br>" +
+    //             "<b>GST NUMBER : </b>" + obj[0].gst + "</small>",
+    //         closeButton: false,
+    //         backdrop: true
+    //     });
+    // } else {
+    // }
+
+    document.getElementById("summary").innerHTML = summaryInfo();
 
 
 });
@@ -377,18 +417,25 @@ function addNewProductRequest(json) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
+            data.products.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
+
+            data.customer.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
             porformaSchema = data;
             var table = '';
             for (var i = 0; i < data.products.length; i++) {
-                table += '<tr><th scope="row"><input id="' + data.products[i].id + '" name="' + data.products[i].id + '" type="checkbox"></th>' +
-                    '<th><input id="name' + data.products[i].id + '" name="name' + data.products[i].id + '" type="text" value="' + data.products[i].name + '"></th>' +
-                    '<th><input id="price' + data.products[i].id + '" name="price' + data.products[i].id + '" type="number" value="' + data.products[i].price + '"></th>' +
-                    '<th><input id="quan' + data.products[i].id + '" name="quan' + data.products[i].id + '" type="number" value="1"></th>' +
+                table += '<tr><th scope="row"><input id="' + data.products[i].id + '" name="' + data.products[i].id + '" type="checkbox"  onclick="productCheckbox()"></th>' +
+                    '<th><input id="name' + data.products[i].id + '" name="name' + data.products[i].id + '" type="text" value="' + data.products[i].name + '"  onchange="productCheckbox()"></th>' +
+                    '<th><input id="price' + data.products[i].id + '" name="price' + data.products[i].id + '" type="number" value="' + data.products[i].price + '"  onchange="productCheckbox()"></th>' +
+                    '<th><input id="quan' + data.products[i].id + '" name="quan' + data.products[i].id + '" type="number" value="1"  onchange="productCheckbox()"></th>' +
                     '<th><button onclick="deleteProduct(' + data.products[i].id + ')" class="btn text-danger align-text-top">DELETE</button></th></tr>';
             }
             table += '<tr> <th scope="row"><i style="font-size: 30px;" class="bi bi-plus-circle" onclick="addProduct()"></i></th> <td></td> <td></td> <td></td> </tr>';
             document.getElementById("tablebody").innerHTML = table;
-
+            document.getElementById("summary").innerHTML = summaryInfo();
             $("#myprogress").hide();
             $("#maindiv").show();;
         },
@@ -432,17 +479,26 @@ function deleteProductRequest(id) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
+            data.products.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
+
+            data.customer.sort(function(a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            });
+
             porformaSchema = data;
             var table = '';
             for (var i = 0; i < data.products.length; i++) {
-                table += '<tr><th scope="row"><input id="' + data.products[i].id + '" name="' + data.products[i].id + '" type="checkbox"></th>' +
-                    '<th><input id="name' + data.products[i].id + '" name="name' + data.products[i].id + '" type="text" value="' + data.products[i].name + '"></th>' +
-                    '<th><input id="price' + data.products[i].id + '" name="price' + data.products[i].id + '" type="number" value="' + data.products[i].price + '"></th>' +
-                    '<th><input id="quan' + data.products[i].id + '" name="quan' + data.products[i].id + '" type="number" value="1"></th>' +
+                table += '<tr><th scope="row"><input id="' + data.products[i].id + '" name="' + data.products[i].id + '" type="checkbox" onclick="productCheckbox()"></th>' +
+                    '<th><input id="name' + data.products[i].id + '" name="name' + data.products[i].id + '" type="text" value="' + data.products[i].name + '"  onchange="productCheckbox()"></th>' +
+                    '<th><input id="price' + data.products[i].id + '" name="price' + data.products[i].id + '" type="number" value="' + data.products[i].price + '"  onchange="productCheckbox()"></th>' +
+                    '<th><input id="quan' + data.products[i].id + '" name="quan' + data.products[i].id + '" type="number" value="1"  onchange="productCheckbox()"></th>' +
                     '<th><button onclick="deleteProduct(' + data.products[i].id + ')" class="btn text-danger align-text-top">DELETE</button></th></tr>';
             }
             table += '<tr> <th scope="row"><i style="font-size: 30px;" class="bi bi-plus-circle" onclick="addProduct()"></i></th> <td></td> <td></td> <td></td> </tr>';
             document.getElementById("tablebody").innerHTML = table;
+            document.getElementById("summary").innerHTML = summaryInfo();
             $("#myprogress").hide();
             $("#maindiv").show();
             ;
@@ -532,8 +588,10 @@ function downloadPorforma(emailThisPorforma) {
     }
 
     var lastinvno = localStorage.getItem("lastinvno");
-    if (count === lastinvno) {
-        count = lastinvno + 1;
+    if(lastinvno !== undefined || lastinvno !== null || lastinvno !== ""){
+        if(parseInt(lastinvno)>=count){
+         count = parseInt(lastinvno)+1;
+        }
     }
 
     var products = []
@@ -596,7 +654,23 @@ function downloadPorforma(emailThisPorforma) {
                     item["products"] = products;
                     item["billDate"] = document.getElementById("invoicedate").value;
 
-
+                    var test = historyData;
+                    var existInHistory = false;
+                    for(str in test){
+                        var invoicenum = test[str].replace("invoice","").replace(".pdf","");
+                        if((invoicenum)=== $('#invoicenumber', '.bootbox').val()){
+                            existInHistory = true;
+                            bootbox.dialog({
+                                message: '<label class="text-danger">invoice with this number already exist in history.</label>',
+                                closeButton: false,
+                                backdrop: true
+                            });
+                        }
+                    }
+                
+                    if(existInHistory){
+                        return false;
+                    }
 
                     if (billtype === "up") {
                         item["upinvoiceNo"] = $('#invoicenumber', '.bootbox').val();
@@ -607,7 +681,7 @@ function downloadPorforma(emailThisPorforma) {
                     }
                     localStorage.setItem("lastinvno", $('#invoicenumber', '.bootbox').val());
                     porformaSchema1.push(item);
-
+                    
                     if (emailThisPorforma !== undefined) {
                         emailPorforma(porformaSchema1, billtype);
                     } else {
@@ -641,8 +715,10 @@ function porformaInvoiceRequest(billjson, billtype) {
         success: function (data) {
             window.location.href = data.token;
             refresh();
+            setTimeout(function(){ getHistoryDataAjax2(); }, 5000);
         },
         error: function (e) {
+            document.getElementById("summary").innerHTML = summaryInfo();
             $("#myprogress").hide();
             $("#maindiv").show();;
         }
@@ -716,8 +792,10 @@ function emailPorformaAjax(porformaSchema1, billtype, sendTo, sendToSubject, sen
         success: function (data) {
             goToStep(1);
             refresh();
+            setTimeout(function(){ getHistoryDataAjax2(); }, 5000);
         },
         error: function (e) {
+            document.getElementById("summary").innerHTML = summaryInfo();
             bootbox.dialog({
                 message: "Failed to send Email.",
                 closeButton: false,
@@ -742,6 +820,7 @@ function goToStep(step) {
         $("#step2sign").removeClass('border-dark');
         $("#step3sign").removeClass('border-dark');
         $("#step1sign").addClass('border-dark');
+        document.getElementById("summary").innerHTML = summaryInfo();
     } else if (step === 2) {
         $("#step1").hide();
         $("#maindiv2").show();
@@ -752,6 +831,7 @@ function goToStep(step) {
         $("#step1sign").removeClass('border-dark');
         $("#step3sign").removeClass('border-dark');
         $("#step2sign").addClass('border-dark');
+        document.getElementById("summary").innerHTML = summaryInfo();
     } else if (step === 3) {
         $("#step1").hide();
         $("#maindiv2").hide();
@@ -762,9 +842,69 @@ function goToStep(step) {
         document.getElementById("step3sign").innerHTML = '<i class="bi bi-circle-fill" style="font-size: 20px;"></i>';
         document.getElementById("step2sign").innerHTML = '<i class="bi bi-circle" style="font-size: 20px;"></i>';
         document.getElementById("step1sign").innerHTML = '<i class="bi bi-circle" style="font-size: 20px;"></i>';
+        document.getElementById("summary").innerHTML = summaryInfo();
     }
 
 }
+
+
+
+function productCheckbox(){
+    document.getElementById("summary").innerHTML = summaryInfo();
+}
+
+function summaryInfo() {
+  
+    var products = []
+    for (var i = 0; i < porformaSchema.products.length; i++) {
+        var id = porformaSchema.products[i].id;
+        if (document.getElementById("" + id).checked) {
+            var item = {};
+            item["id"] = id;
+            item["name"] = $("#name" + id).val();
+            item["price"] = $("#price" + id).val();
+            item["quan"] = $("#quan" + id).val();
+            products.push(item);
+        }
+    }
+        var productStr = '<table class="table table-responsive table-hover ">';
+        productStr += "<thead class='table-info table-bordered'><th>#</th><th>Name</th><th>Price</th><th>Quantity</th></thead><tbody>";
+        for (var i = 0; i < products.length; i++) {
+            productStr += "<tr><th>" + (i + 1) + "</th><th>" + products[i].name + "</th><th>" + products[i].price + "</th><th>" + products[i].quan + "</th></tr>";
+        }
+        productStr += '</tbody></table>';
+        
+        var customer = porformaSchema.customer;
+        var customerStr = '';
+        
+    var obj = customer.filter(function (n) {
+        return n.id === $("#customertype").val();
+    });
+
+    if($("#customertype").val() !== ""){
+       customerStr += "<small><b>Name :</b> " + obj[0].buyerName + "<br>" +
+                "<b>ADDRESS :</b> " + obj[0].addressLine1 + "<br>" +
+                "" + obj[0].addressLine2 + "<br>" +
+                "<b>STATE :</b> " + obj[0].state + "<br>" +
+                "<b>MOBILE : </b>" + obj[0].mobile + "<br>" +
+                "<b>GST NUMBER : </b>" + obj[0].gst + "</small><br>";
+    }
+
+    if(customerStr.length === 0){
+        customerStr='';
+    }
+    if(productStr.length === 177){
+        productStr='';
+    }
+
+    if((customerStr.length+productStr.length) === 0){
+        return 'No Customer or Product Selected.';
+    }
+
+    return customerStr + productStr;
+
+}
+
 
 
 function doLogout() {
@@ -875,6 +1015,7 @@ function getHistoryDataAjax2() {
         success: function (data) {
             historyData = data;
             document.getElementById("historyCountLabel").innerHTML = '&nbsp;of ' + data.length + ' records';
+            document.getElementById("historyBody").innerHTML='';
             var count = 0;
             for (var i = data.length - 1; i >= 0 && count < 5; i--) {
                 count++;
@@ -1136,10 +1277,101 @@ function historyInfo(data, item) {
         }
 
     }
-
-
 }
 
+
+
+function refreshHistory(){
+    $(".nav-link").addClass("disabled");
+    document.getElementById("historyBody").innerHTML ='';
+    document.getElementById("historyCountLabel").innerHTML ='';
+    getHistoryDataAjax2();
+    $(".nav-link").removeClass("disabled");
+}
+
+
+function clearHistory(){
+    bootbox.dialog({
+        title: "Delete Selected History Items",
+        message: $('#managehistory-template').html(),
+        buttons: {
+            danger: {
+                label: "Cancel",
+                className: "btn btn-white text-dark",
+                callback:function(){
+                }
+            },
+            success: {
+                label: "Delete",
+                className: "btn btn-light text-danger",
+                callback: function () {
+                    var deleteHistoryList=[];
+                    for(var i=0;i<historyData.length;i++){
+                        if(document.getElementById('historyitem'+i).checked){
+                            deleteHistoryList.push(historyData[i]);
+                        }
+                    }
+                    
+                    if(deleteHistoryList.length === 0){
+                        bootbox.dialog({
+                            message: "No Item Selected.",
+                            closeButton: false,
+                            backdrop: true
+                        });
+                        return false;
+                    }
+                    deleteHistoryListAjax(deleteHistoryList);
+                    
+                }
+            }
+        }
+    });
+
+    document.getElementById("historypick").innerHTML='';
+    for(var i=historyData.length-1;i>=0;i--){
+          var checked='';
+          document.getElementById("historypick").innerHTML+='<div class="col"><label class="form-selectgroup-item flex-fill">'+
+                                                        '<input type="checkbox" id="historyitem'+i+'" name="historyitem'+i+'"  value="'+i+'" class="form-selectgroup-input" '+checked+'>'+
+                                                        '<div class="form-selectgroup-label d-flex align-items-center p-3">'+
+                                                        '<div class="me-3"><span class="form-selectgroup-check"></span></div>'+
+                                                        //'<div class="form-selectgroup-label-content d-flex align-items-center"><span class="avatar me-3" style="background-image: url(/images/favicon.ico)"></span></div>'+
+                                                        '<div>'+//+'<div class="font-weight-medium">'+historyData[i]+'</div>'+
+                                                        '<div class="text-muted">'+historyData[i]+'</div></div>'+
+                                                        '</div></div></label></div>';
+    }
+}
+
+
+function deleteHistoryListAjax(deleteHistoryList){
+    $('.btn').addClass('disabled');
+    $("#myprogress").show();
+    $.ajax({
+        url: url + '/api/xl/history/deletelist',
+        type: 'DELETE',
+        data: JSON.stringify(deleteHistoryList),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
+        },
+        success: function (data) {
+            $('.btn').removeClass('disabled');
+            historyData = data;
+            document.getElementById("historyCountLabel").innerHTML = '&nbsp;of ' + data.length + ' records';
+            var count = 0;
+            document.getElementById("historyBody").innerHTML = '';
+            for (var i = data.length - 1; i >= 0 && count < 5; i--) {
+                count++;
+                document.getElementById("historyBody").innerHTML += '<tr style="cursor: pointer;" ><td><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + data[i] + '</td><td>' + ' <div class="dropdown"> <button class="btn btn-white text-dark" type="button"  onclick="viewHistoryItem(\'' + data[i] + '\')" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> View </button> </div></td></tr>';
+            }
+            $("#myprogress").hide();
+        },
+        error: function (e) {
+            $('.btn').removeClass('disabled');
+            $("#myprogress").hide();
+        }
+    });
+}
 
 
 
