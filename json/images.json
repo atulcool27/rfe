@@ -3,7 +3,32 @@
         {
             "name":"qualtiypolicy",
             "url":"/public/qualitypolicy.html",
-            "imageurl":"/images/qualitypolicy/qualitypolicy.jpg"
+            "imageurl":"../images/qualitypolicy/qualitypolicy.jpg"
+        },
+        {
+            "name":"home",
+            "url":"/",
+            "imageurl":"/images/home/cover.jpg"
+        },
+        {
+            "name":"home",
+            "url":"/index.html",
+            "imageurl":"/images/home/cover.jpg"
+        },
+        {
+            "name":"about",
+            "url":"/public/about.html",
+            "imageurl":"../images/about/aboutus.jpg"
+        },
+        {
+            "name":"network",
+            "url":"/public/network.html",
+            "imageurl":"../images/network/network.jpg"
+        },
+        {
+            "name":"contact",
+            "url":"/public/contact.html",
+            "imageurl":"../images/contact/contact.png"
         }
     ]
 }
