@@ -19,7 +19,7 @@ $(document).ready(function(){
     
        },
        error: function(e){
-           alert(e);
+         
        }
    });
 });
@@ -38,8 +38,7 @@ function getMeta(url,obj) {
         imgHeight = parseInt(this.height);
         var imgRatio = imgWidth/imgHeight;
         var calcval = (parseInt(window.screen.height) - parseInt(window.screen.width)/imgRatio);
-        console.log(calcval);
-        document.getElementById("heroCreator").innerHTML='<section id="hero" class="d-flex align-items-center" style="background-image: url(\'..'+obj.imageurl+'\');'+
+        document.getElementById("heroCreator").innerHTML='<section id="hero" class="d-flex align-items-center" style="background-image: url(\''+obj.imageurl+'\');'+
         ' height: calc(100vh - '+calcval+'px);"></section>';
     };
     img.src = url;
