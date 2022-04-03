@@ -9,7 +9,7 @@ $(document).ready(function(){
        success: function(data){
         var obj;
         for(var i=0;i<(data.page).length;i++){
-            if((data.page)[i].url === location.pathname){
+            if((data.page)[i].url === location.pathname || (data.page)[i].url === location.pathname+".html"){
                 obj = (data.page)[i];
                 break;
             }
