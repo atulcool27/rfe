@@ -1272,7 +1272,7 @@ function historyInfo(data, item) {
                     "<b>MOBILE : </b>" + customer[0].mobile + "<br>" +
                     "<b>GST NUMBER : </b>" + customer[0].gst + "</small><br>" +
                     productStr+
-                    '<div class="row" style="cursor: pointer;" ><div class="col"><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + item + '</div></div>   <div class="row">  <div class="col">' + '<a class=" bg-success text-light btn" href="#" onclick="downloadHistoryItem(\'' + data[i] + '\')">Download</a></div> <div class="col"> <a class=" bg-primary text-light btn" href="#" onclick="emailHistoryItem(\'' + data[i] + '\')">Email</a></div>  <div class="col"> <a class="bg-danger text-light btn" href="#" onclick="deleteHistoryItem(\'' + data[i] + '\')">Delete</a> </div> </div>'
+                    '<div class="row" style="cursor: pointer;" ><div class="col"><i class="bi bi-file-earmark-fill" style="font-size: 20px;"></i>' + item + '</div></div>   <div class="row">  <div class="col">' + '<a class=" bg-success text-light btn" href="#" onclick="downloadHistoryItem(\'' + item + '\')">Download</a></div> <div class="col"> <a class=" bg-primary text-light btn" href="#" onclick="emailHistoryItem(\'' + item + '\')">Email</a></div>  <div class="col"> <a class="bg-danger text-light btn" href="#" onclick="deleteHistoryItem(\'' + item + '\')">Delete</a> </div> </div>'
                     ,
                 //'<button class="btn bg-info text-light" onclick="sendAsEmail(' + index + ')">Send As Email</button>',
                 closeButton: false,
