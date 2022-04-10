@@ -2,85 +2,97 @@
     {
         "productId": 2,
         "productName": "3KG Ac Synchronous motor",
-        "productPrice": 560.0,
+        "productPrice": 570.0,
         "productWeight": 3.0,
-        "productImageName": "3"
+        "productImageName": "3",
+        "productImageUrl":"/products/3.jpg"
     },
     {
         "productId": 7,
         "productName": "7kg Ac Synchronous Motor",
         "productPrice": 670.0,
         "productWeight": 7.0,
-        "productImageName": "7"
+        "productImageName": "7",
+        "productImageUrl":"/products/7.jpg"
     },
     {
         "productId": 4,
         "productName": "10Kg Ac Synchronous motor",
         "productPrice": 910.0,
         "productWeight": 10.0,
-        "productImageName": "10"
+        "productImageName": "10",
+        "productImageUrl":"/products/10.jpg"
     },
     {
         "productId": 3,
         "productName": "15kg Ac Synchronous Motor",
         "productPrice": 1400.0,
         "productWeight": 15.0,
-        "productImageName": "15"
+        "productImageName": "15",
+        "productImageUrl":"/products/15.jpg"
     },
     {
         "productId": 1,
         "productName": "20kg Ac Synchronous Motor",
         "productPrice": 1800.0,
         "productWeight": 20.0,
-        "productImageName": "20"
+        "productImageName": "20",
+        "productImageUrl":"/products/20.jpg"
     },
     {
         "productId": 5,
         "productName": "28kg Ac Synchronous Motor  ",
         "productPrice": 2700.0,
         "productWeight": 28.0,
-        "productImageName": "28"
+        "productImageName": "28",
+        "productImageUrl":"/products/28.jpg"
     },
     {
         "productId": 6,
         "productName": "40Kg Ac Synchronous Motor",
         "productPrice": 4000.0,
         "productWeight": 40.0,
-        "productImageName": "40"
+        "productImageName": "40",
+        "productImageUrl":"/products/40.jpg"
     },
     {
         "productId": 8,
         "productName": "60kg Ac Synchronous motor",
         "productPrice": 7200.0,
         "productWeight": 60.0,
-        "productImageName": "60"
+        "productImageName": "60",
+        "productImageUrl":"/products/60.jpg"
     },
     {
         "productId": 9,
         "productName": "80kg Ac synchronous Motor",
         "productPrice": 9200.0,
         "productWeight": 80.0,
-        "productImageName": "80"
+        "productImageName": "80",
+        "productImageUrl":"/products/80.jpg"
     },
     {
         "productId": 10,
         "productName": "Ac Synchronous Geared Motor 10 Rpm",
         "productPrice": 2700.0,
         "productWeight": 999.0,
-        "productImageName": "gear10rpm"
+        "productImageName": "gear10rpm",
+        "productImageUrl":"/products/gear10rpm.jpg"
     },
     {
         "productId": 13,
         "productName": "Ac Synchronous Geared Motor 20 Rpm",
         "productPrice": 3500.0,
         "productWeight": 999.0,
-        "productImageName": "gear20rpm"
+        "productImageName": "gear20rpm",
+        "productImageUrl":"/products/gear20rpm.jpg"
     },
     {
         "productId": 12,
         "productName": "Ac Synchronous Worm Gear Motor",
         "productPrice": 11000.0,
         "productWeight": 1000.0,
-        "productImageName": "wormgear"
+        "productImageName": "wormgear",
+        "productImageUrl":"/products/wormgear.jpg"
     }
 ]
