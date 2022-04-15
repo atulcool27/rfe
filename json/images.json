@@ -3,31 +3,43 @@
         {
             "name":"qualtiypolicy",
             "url":"/public/qualitypolicy.html",
+            "imagename":"qualitypolicy.jpg",
+            "dirname":"/images/qualitypolicy/",
             "imageurl":"../images/qualitypolicy/qualitypolicy.jpg"
         },
         {
             "name":"home",
             "url":"/",
+            "imagename":"cover.jpg",
+            "dirname":"/images/home/",
             "imageurl":"/images/home/cover.jpg"
         },
         {
             "name":"home",
             "url":"/index.html",
+            "imagename":"cover.jpg",
+            "dirname":"/images/home/",
             "imageurl":"/images/home/cover.jpg"
         },
         {
             "name":"about",
             "url":"/public/about.html",
+            "imagename":"aboutus.jpg",
+            "dirname":"/images/about/",
             "imageurl":"../images/about/aboutus.jpg"
         },
         {
             "name":"network",
             "url":"/public/network.html",
+            "imagename":"network.jpg",
+            "dirname":"/images/network/",
             "imageurl":"../images/network/network.jpg"
         },
         {
             "name":"contact",
             "url":"/public/contact.html",
+            "imagename":"contact.png",
+            "dirname":"/images/contact/",
             "imageurl":"../images/contact/contact.png"
         }
     ]
