@@ -714,7 +714,7 @@ function porformaInvoiceRequest(billjson, billtype) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem(new Date().toLocaleDateString("en-US")));
         },
         success: function (data) {
-            window.location.href = data.token;
+            download(data.token,"invoice"+ billjson[0].upinvoiceNo+".pdf");
             refresh();
             setTimeout(function(){ getHistoryDataAjax2(); }, 5000);
         },
@@ -726,6 +726,19 @@ function porformaInvoiceRequest(billjson, billtype) {
     });
 }
 
+
+
+function download(url, filename) {
+    fetch(url).then(function(t) {
+        return t.blob().then((b)=>{
+            var a = document.createElement("a");
+            a.href = URL.createObjectURL(b);
+            a.setAttribute("download", filename);
+            a.click();
+        }
+        );
+    });
+}
 
 
 
